@@ -16,6 +16,7 @@
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
 #include "MemoryPatch.h"
+#include "functions.h"
 
 static int                  g_GlHeight, g_GlWidth;
 static bool                 g_IsSetup = false;
