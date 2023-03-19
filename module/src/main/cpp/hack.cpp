@@ -29,6 +29,8 @@ HOOKAF(void, Input, void *thiz, void *ex_ab, void *ex_ac) {
     return;
 }
 
+static int tabb = 0;
+//-------------------//
 void ImGui::ShowExampleGameWindows(bool* p_open){
 	const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x + 250, main_viewport->WorkPos.y + 12), ImGuiCond_FirstUseEver);
