@@ -17,11 +17,12 @@
 #include "imgui_impl_opengl3.h"
 #include "MemoryPatch.h"
 #include "functions.h"
+#include "Themes.h"
 
-static int                  g_GlHeight, g_GlWidth;
-static bool                 g_IsSetup = false;
-static std::string          g_IniFileName = "";
-static utils::module_info   g_TargetModule{};
+static int g_GlHeight, g_GlWidth;
+static bool g_IsSetup = false;
+static std::string g_IniFileName = "";
+static utils::module_info g_TargetModule{};
 
 HOOKAF(void, Input, void *thiz, void *ex_ab, void *ex_ac) {
     origInput(thiz, ex_ab, ex_ac);
@@ -32,7 +33,7 @@ HOOKAF(void, Input, void *thiz, void *ex_ab, void *ex_ac) {
 static int tabb = 0;
 //-------------------//
 void ImGui::ShowExampleGameWindows(bool* p_open){
-	const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
+    const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x + 250, main_viewport->WorkPos.y + 12), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(850, 680), ImGuiCond_FirstUseEver);
     
@@ -172,19 +173,16 @@ void SetupImGui() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
-
     io.IniFilename = g_IniFileName.c_str();
     io.DisplaySize = ImVec2((float)g_GlWidth, (float)g_GlHeight);
-
     ImGui_ImplAndroid_Init(nullptr);
     ImGui_ImplOpenGL3_Init("#version 300 es");
     ImGui::StyleColorsLight();
-
     ImFontConfig font_cfg;
     font_cfg.SizePixels = 22.0f;
     io.Fonts->AddFontDefault(&font_cfg);
-
     ImGui::GetStyle().ScaleAllSizes(3.0f);
+    Theme::SetBlueOceanTheme();
 }
 
 EGLBoolean (*old_eglSwapBuffers)(EGLDisplay dpy, EGLSurface surface);
@@ -198,13 +196,10 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
     }
 
     ImGuiIO &io = ImGui::GetIO();
-
     ImGui_ImplOpenGL3_NewFrame();
     ImGui_ImplAndroid_NewFrame(g_GlWidth, g_GlHeight);
     ImGui::NewFrame();
-
     ImGui::ShowExampleGameWindows();
-
     ImGui::EndFrame();
     ImGui::Render();
     glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
