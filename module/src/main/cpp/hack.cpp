@@ -201,7 +201,7 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
     ImGui_ImplAndroid_NewFrame(g_GlWidth, g_GlHeight);
     ImGui::NewFrame();
 
-    ImGui::ShowDemoWindow();
+    ImGui::ShowExampleGameWindows();
 
     ImGui::EndFrame();
     ImGui::Render();
