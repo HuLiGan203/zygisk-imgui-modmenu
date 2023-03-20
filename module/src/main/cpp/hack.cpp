@@ -18,6 +18,8 @@
 #include "MemoryPatch.h"
 #include "functions.h"
 #include "Themes.h"
+#include "Data/Fonts/Roboto-Regular.h"
+
 
 static int g_GlHeight, g_GlWidth;
 static bool g_IsSetup = false;
