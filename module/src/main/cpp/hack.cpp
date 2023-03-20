@@ -259,7 +259,7 @@ void hack_start(const char *_game_data_dir) {
     get_position = (void (*)(void *, Vector3)) 
                getAddresss((0x198fb4c));//Transform get_position_Injected
     set_position = (void (*)(void *, Vector3)) 
-               getAddress((0x198fbf4));//Transform set_position_Injected
+               getAddresss((0x198fbf4));//Transform set_position_Injected
     get_transform = (void *(*)(void*)) 
                getAddresss((0x197397c));//Component get_transform
     get_main = (void*(*)()) 
