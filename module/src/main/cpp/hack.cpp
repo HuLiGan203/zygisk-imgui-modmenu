@@ -20,6 +20,9 @@
 #include "Themes.h"
 #include "Data/Fonts/Roboto-Regular.h"
 #include "test.h"
+#include "Draw/Include.h"
+#include "Mono/MonoString.cpp"
+#include "Unity/Quaternion.hpp"
 
 
 static int g_GlHeight, g_GlWidth;
