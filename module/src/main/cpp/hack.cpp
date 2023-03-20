@@ -24,7 +24,6 @@
 #include "Mono/MonoString.cpp"
 #include "Unity/Quaternion.hpp"
 
-
 static int g_GlHeight, g_GlWidth;
 static bool g_IsSetup = false;
 static std::string g_IniFileName = "";
@@ -34,6 +33,23 @@ HOOKAF(void, Input, void *thiz, void *ex_ab, void *ex_ac) {
     origInput(thiz, ex_ab, ex_ac);
     ImGui_ImplAndroid_HandleInputEvent((AInputEvent *)thiz);
     return;
+}
+
+struct My_Patches {
+MemoryPatch Sh, bypass1, bypass2, bypass3;
+} hexPatches;
+
+void *(*get_main)();
+
+Vector3 (*WorldToScreenPoint)(void *instance, Vector3);
+Vector3 (*Transform_get_position)(void *instance);
+Vector3 (*get_forward)(void *instance);
+void (*set_position)(void *instance, Vector3);
+void (*get_position)(void *instance, Vector3);
+void *(*get_transform)(void *instance);
+MonoString *(*PlayerName)(void *instance);
+Vector3 getPosition(void *player){
+    return Transform_get_position(get_transform(player));
 }
 
 static int tabb = 0;
@@ -107,7 +123,7 @@ ImGui::Checkbox("Function", &Vars::Other::func10);
 }	
    } 
    
-      /*if (Vars::Esp::start) {		  
+      if (Vars::Esp::start) {		  
             std::string Allplayers;     
             Allplayers += "Near People: ";
             Allplayers += std::to_string((int32_t) players.size());
@@ -139,7 +155,7 @@ ImGui::Checkbox("Function", &Vars::Other::func10);
                                                  glHeight - HeadPosition.y + Vars::Esp::EnemyLineY),
                                           ImVec4(1.0,0.921569,0.0156863,1.0), Vars::Esp::ThicknessLine);
 			    }						  
-		        float boxHeight = abs(HeadPosition.y - BottomPosition.y) / 0.8f;
+		float boxHeight = abs(HeadPosition.y - BottomPosition.y) / 0.8f;
                 float boxWidth = boxHeight * 0.60f;
                 Rect playerRect(HeadPosition.x - (boxWidth / 2), (glHeight - HeadPosition.y - 5.0f), boxWidth, boxHeight);                   
                 if (Vars::Esp::box && PlayerAlive(Player)){
@@ -159,7 +175,7 @@ ImGui::Checkbox("Function", &Vars::Other::func10);
 				DrawAddLine::DrawText2(23.0f, ImVec2(playerRect.x + (playerRect.width / 0.78), playerRect.y - 20), ImVec4(0, 1, 1, 1), GetHp.c_str());  
 				}
 				
-				if(Vars::Esp::distance && PlayerAlive(Player)){
+				if(Vars::Esp::distance && DistanceTo < 300.0f && PlayerAlive(Player)){
                 char extra[30];
                 float DistanceTo = DrawAddLine::get_3D_Distance(MyPos.x, MyPos.y, MyPos.z, PlayerPos.x, PlayerPos.y, PlayerPos.z);                  
                 sprintf(extra, "%0.0f m", DistanceTo);					
@@ -172,7 +188,7 @@ ImGui::Checkbox("Function", &Vars::Other::func10);
 				}
 	      	}
 		}		
-    }*/
+    }
    ImGui::End();
 }
 void SetupImGui() {
@@ -222,7 +238,47 @@ void hack_start(const char *_game_data_dir) {
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
 
     // TODO: hooking/patching here
-    
+     WorldToScreenPoint = (Vector3(*)(void*, Vector3)) 
+              getAddresss((0x1971658));//Camera WorldToScreenPoint(Vector3 position)
+    Transform_get_position = (Vector3 (*)(void*)) 
+              getAddresss((0x198faec));//Transform get_position
+    get_forward = (Vector3 (*)(void*)) 
+              getAddresss((0x19904e4));//Transform get_forward
+    get_position = (void (*)(void *, Vector3)) 
+               getAddresss((0x198fb4c));//Transform get_position_Injected
+    set_position = (void (*)(void *, Vector3)) 
+               getAddress((0x198fbf4));//Transform set_position_Injected
+    get_transform = (void *(*)(void*)) 
+               getAddresss((0x197397c));//Component get_transform
+    get_main = (void*(*)()) 
+               getAddresss((0x197193c));//Camera get_main  
+    PlayerName = (MonoString *(*)(void *))
+               getAddresss((0x1790ac0));//Player name
+	/*match = (void*(*)()))
+	            getAbsoluteAddress("libil2cpp.so", 0xA61004);//Stop Esp*/
+				
+    DobbyHook((void *) getAddresss((0x1ecfc68)), (void *) Player_update, (void **) &old_Player_update);
+	
+     hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x1a9ea4c, "00 00 00 00");
+     hexPatches.bypass2 = MemoryPatch::createWithHex("libil2cpp.so", 0x0017e040, "00 00 00 00");
+     hexPatches.bypass3 = MemoryPatch::createWithHex("libil2cpp.so", 0x0017e040, "00 00 00 00");
+    	
+     hexPatches.bypass1.Modify();//Anti detect 
+     hexPatches.bypass2.Modify();//
+     hexPatches.bypass3.Modify();//Anti detect 
+	
+    	/*
+ 01 00 A0 E3 1E FF 2F E1 = 1/True
+ 00 00 A0 E3 1E FF 2F E1 = 0/False
+ FA 04 44 E3 1E FF 2F E1 = FLOAT/2000
+ c6 02 44 e3 1e ff 2f e1 = FLOAT/99
+ 20 02 44 E3 1E FF 2F E1 = FLOAT/40
+ C8 02 44 E3 1E FF 2F E1 = FLOAT/100
+ 37 00 A0 E3 1E FF 2F E1 = 50 INT
+ FF 00 A0 E3 1E FF 2F E1 = 255 INT
+ E7 03 00 E3 1E FF 2F E1 = 999 INT
+ DC 0F 0F E3 1E FF 2F E1 = 65500/INT
+ */
 }
 
 void hack_prepare(const char *_game_data_dir) {
