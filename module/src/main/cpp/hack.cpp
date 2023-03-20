@@ -24,7 +24,7 @@
 #include "Mono/MonoString.cpp"
 #include "Unity/Quaternion.hpp"
 
-static int g_GlHeight, g_GlWidth;
+static int glHeight, glWidth;
 static bool g_IsSetup = false;
 static std::string g_IniFileName = "";
 static utils::module_info g_TargetModule{};
@@ -196,7 +196,7 @@ void SetupImGui() {
     ImGui::CreateContext();
     ImGuiIO &io = ImGui::GetIO();
     io.IniFilename = g_IniFileName.c_str();
-    io.DisplaySize = ImVec2((float)g_GlWidth, (float)g_GlHeight);
+    io.DisplaySize = ImVec2((float)glWidth, (float)glHeight);
     ImGui_ImplAndroid_Init(nullptr);
     ImGui_ImplOpenGL3_Init("#version 300 es");
     ImGui::StyleColorsLight();
@@ -219,7 +219,7 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
 
     ImGuiIO &io = ImGui::GetIO();
     ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplAndroid_NewFrame(g_GlWidth, g_GlHeight);
+    ImGui_ImplAndroid_NewFrame(glWidth, glHeight);
     ImGui::NewFrame();
     ImGui::ShowExampleGameWindows();
     ImGui::EndFrame();
