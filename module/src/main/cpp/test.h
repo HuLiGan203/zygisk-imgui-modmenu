@@ -43,7 +43,7 @@ ulong get_module_base(const char *module_name) {
     return addr;
 }
 const char * libName = "libil2cpp.so";
-ulong getAdresss(ulong address) {
+ulong getAddress(ulong address) {
     if (il2cpp_base == 0) {
         il2cpp_base = get_module_base(libName);
     }
