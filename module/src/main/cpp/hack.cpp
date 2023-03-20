@@ -186,9 +186,10 @@ ImGui::Checkbox("Function", &Vars::Other::func10);
 				DrawAddLine::DrawText2(23.0f, ImVec2(playerRect.x + (playerRect.width / 0.78), playerRect.y - 20), ImVec4(0, 1, 1, 1), GetHp.c_str());  
 				}
 				
-				if(Vars::Esp::distance && DistanceTo < 300.0f && PlayerAlive(Player)){
+				if(Vars::Esp::distance && PlayerAlive(Player)){
                 char extra[30];
-                float DistanceTo = DrawAddLine::get_3D_Distance(MyPos.x, MyPos.y, MyPos.z, PlayerPos.x, PlayerPos.y, PlayerPos.z);                  
+                float DistanceTo = DrawAddLine::get_3D_Distance(MyPos.x, MyPos.y, MyPos.z, PlayerPos.x, PlayerPos.y, PlayerPos.z);  
+		DistanceTo < 300.0f;			
                 sprintf(extra, "%0.0f m", DistanceTo);					
                 DrawAddLine::DrawText2(23.0f, ImVec2(playerRect.x - (playerRect.width / 0.88), playerRect.y - 20), ImVec4(0, 1, 1, 1), extra);  					
 			    }
