@@ -221,8 +221,8 @@ void SetupImGui() {
 
 EGLBoolean (*old_eglSwapBuffers)(EGLDisplay dpy, EGLSurface surface);
 EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
-    eglQuerySurface(dpy, surface, EGL_WIDTH, &g_GlWidth);
-    eglQuerySurface(dpy, surface, EGL_HEIGHT, &g_GlHeight);
+    eglQuerySurface(dpy, surface, EGL_WIDTH, &glWidth);
+    eglQuerySurface(dpy, surface, EGL_HEIGHT, &glHeight);
 
     if (!g_IsSetup) {
       SetupImGui();
