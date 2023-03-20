@@ -1,7 +1,7 @@
 #ifndef ImGuiAndroid_Draww
 #define ImGuiAndroid_Draww
 
-#include "ImGui/imgui_internal.h"
+#include "imgui/imgui_internal.h"
 #include "Struc.h"
 #include "Vector2.h"
 
