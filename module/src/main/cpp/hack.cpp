@@ -19,6 +19,7 @@
 #include "functions.h"
 #include "Themes.h"
 #include "Data/Fonts/Roboto-Regular.h"
+#include "test.h"
 
 
 static int g_GlHeight, g_GlWidth;
