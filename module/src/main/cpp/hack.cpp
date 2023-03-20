@@ -52,6 +52,17 @@ Vector3 getPosition(void *player){
     return Transform_get_position(get_transform(player));
 }
 
+int GetPlayerHealth(void *player) {
+    return *(float *) ((uint64_t) player + 0x178);
+} 
+
+bool PlayerAlive(void *player) {
+    return player != NULL && GetPlayerHealth(player) > 0;
+}
+bool IsPlayerDead(void *player) {
+    return player == NULL && GetPlayerHealth(player) <= 0;
+}
+
 static int tabb = 0;
 //-------------------//
 void ImGui::ShowExampleGameWindows(bool* p_open){
