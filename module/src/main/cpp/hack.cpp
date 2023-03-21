@@ -250,29 +250,29 @@ void hack_start(const char *_game_data_dir) {
 
     // TODO: hooking/patching here
      WorldToScreenPoint = (Vector3(*)(void*, Vector3)) 
-              getAddresss((0x1971658));//Camera WorldToScreenPoint(Vector3 position)
+              getAddresss((0x1c21ff4));//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
-              getAddresss((0x198faec));//Transform get_position
+              getAddresss((0x1c40818));//Transform get_position
     get_forward = (Vector3 (*)(void*)) 
-              getAddresss((0x19904e4));//Transform get_forward
+              getAddresss((0x1c41210));//Transform get_forward
     get_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x198fb4c));//Transform get_position_Injected
+               getAddresss((0x1c40878));//Transform get_position_Injected
     set_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x198fbf4));//Transform set_position_Injected
+               getAddresss((0x1c40920));//Transform set_position_Injected
     get_transform = (void *(*)(void*)) 
-               getAddresss((0x197397c));//Component get_transform
+               getAddresss((0x1c246a8));//Component get_transform
     get_main = (void*(*)()) 
-               getAddresss((0x197193c));//Camera get_main  
+               getAddresss((0x1c22668));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
                getAddresss((0x1790ac0));//Player name
 	/*match = (void*(*)()))
 	            getAbsoluteAddress("libil2cpp.so", 0xA61004);//Stop Esp*/
 				
-    DobbyHook((void *) getAddresss((0x1ecfc68)), (void *) Player_update, (void **) &old_Player_update);
+    DobbyHook((void *) getAddresss((0x26bbda0)), (void *) Player_update, (void **) &old_Player_update);
 	
-     hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x1a9ea4c, "00 00 00 00");
-     hexPatches.bypass2 = MemoryPatch::createWithHex("libil2cpp.so", 0x0017e040, "00 00 00 00");
-     hexPatches.bypass3 = MemoryPatch::createWithHex("libil2cpp.so", 0x0017e040, "00 00 00 00");
+     hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
+     hexPatches.bypass2 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bc, "00 00 00 00");
+     hexPatches.bypass3 = MemoryPatch::createWithHex("libil2cpp.so", 0x7be, "00 00 00 00");
     	
      hexPatches.bypass1.Modify();//Anti detect 
      hexPatches.bypass2.Modify();//
