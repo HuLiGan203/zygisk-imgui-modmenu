@@ -10,7 +10,7 @@
 #include "hack.h"
 #include "log.h"
 #include "game.h"
-#include "utils.h"
+//#include "utils.h"
 #include "xdl.h"
 #include "imgui.h"
 #include "MemoryPatch.h"
@@ -22,6 +22,7 @@
 #include "Draw/Include.h"
 #include "Mono/MonoString.cpp"
 #include "Unity/Quaternion.hpp"
+#include "Includes/Utils.h"
 
 static int glHeight, glWidth;
 static bool g_IsSetup = false;
