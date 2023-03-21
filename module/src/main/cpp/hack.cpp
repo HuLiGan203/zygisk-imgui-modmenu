@@ -285,7 +285,7 @@ void hack_start(const char *_game_data_dir) {
 	/*match = (void*(*)()))
 	            getAbsoluteAddress("libil2cpp.so", 0xA61004);//Stop Esp*/
 				
-    MSHookFunction((void *)getAbsoluteAddress("libil2cpp.so", 0x26bda8c),
+    A64HookFunction((void *)getAbsoluteAddress("libil2cpp.so", 0x26bda8c),
                                             (void *) &Player_update,
                                             (void **) &old_Player_update);
     
