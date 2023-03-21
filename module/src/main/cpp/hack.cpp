@@ -268,7 +268,7 @@ void hack_start(const char *_game_data_dir) {
 	/*match = (void*(*)()))
 	            getAbsoluteAddress("libil2cpp.so", 0xA61004);//Stop Esp*/
 				
-    DobbyHook((void *) getAddresss((0x26bbda0)), (void *) Player_update, (void **) &old_Player_update);
+    DobbyHook((void *) getAddresss((0x26bda8c)), (void *) Player_update, (void **) &old_Player_update);
 	
      hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
      hexPatches.bypass2 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bc, "00 00 00 00");
