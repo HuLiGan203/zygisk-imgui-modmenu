@@ -16,8 +16,6 @@
 #include "imgui_impl_android.h"
 #include "imgui_impl_opengl3.h"
 #include "MemoryPatch.h"
-#include "Includes/Logger.h"
-#include "Includes/obfuscate.h"
 #include "Includes/Utils.h"
 #include "Includes/Macros.h"
 #include "ImGui/backends/imgui_impl_opengl3.h"
