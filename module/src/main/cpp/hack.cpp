@@ -210,16 +210,11 @@ ImGui::Checkbox("Function", &Vars::Other::func10);
 void SetupImGui() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
-    ImGuiIO &io = ImGui::GetIO();
-    io.IniFilename = g_IniFileName.c_str();
+    ImGuiIO& io = ImGui::GetIO();
     io.DisplaySize = ImVec2((float)glWidth, (float)glHeight);
-    ImGui_ImplAndroid_Init(nullptr);
-    ImGui_ImplOpenGL3_Init("#version 300 es");
-    ImGui::StyleColorsLight();
-    ImFontConfig font_cfg;
-    font_cfg.SizePixels = 22.0f;
-    io.Fonts->AddFontDefault(&font_cfg);
-    ImGui::GetStyle().ScaleAllSizes(3.0f);
+    ImGui_ImplOpenGL3_Init("#version 100");      
+    io.Fonts->AddFontFromMemoryTTF(Roboto_Regular,22,29.0f);
+    ImGui::GetStyle().ScaleAllSizes(9.0f);
     Theme::SetBlueOceanTheme();
 }
 
