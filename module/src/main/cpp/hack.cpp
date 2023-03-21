@@ -24,6 +24,7 @@
 #include "KittyMemory/MemoryPatch.h"
 #include "Includes/Dobby/dobby.h"
 #include "Includes/Utils.h"
+#include "And64InlineHook/And64InlineHook.cpp"
 #define targetLibName OBFUSCATE("libil2cpp.so")
 
 static int glHeight, glWidth;
