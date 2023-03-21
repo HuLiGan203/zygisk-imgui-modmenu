@@ -13,7 +13,7 @@
 //#include "utils.h"
 #include "xdl.h"
 #include "imgui.h"
-#include "MemoryPatch.h"
+#include "KittyMemory/MemoryPatch.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
 #include "imgui/backends/imgui_impl_android.h"
 #include "functions.h"
@@ -23,6 +23,7 @@
 #include "Mono/MonoString.cpp"
 #include "Unity/Quaternion.hpp"
 #include "Includes/Utils.h"
+#define targetLibName OBFUSCATE("libil2cpp.so")
 
 static int glHeight, glWidth;
 static bool g_IsSetup = false;
@@ -261,9 +262,9 @@ void hack_start(const char *_game_data_dir) {
     PlayerName = (MonoString *(*)(void *))
                getAddresss((0x1790ac0));//Player name
 	match = (void*(*)()))
-	            getAbsoluteAddress("libil2cpp.so", 0xA61004);//Stop Esp*/
+	            getAbsoluteAddress("libil2cpp.so", 0xA61004);//Stop Esp
 				
-    DobbyHook((void *) getAddresss((0x26bda8c)), (void *) Player_update, (void **) &old_Player_update);
+    DobbyHook((void *) getAddresss((0x26bda8c)), (void *) Player_update, (void **) &old_Player_update);*/
 	
 	WorldToScreenPoint = (Vector3(*)(void*, Vector3)) 
                 getAbsoluteAddress("libil2cpp.so", 0x1c21ff4);//Camera WorldToScreenPoint(Vector3 position)
