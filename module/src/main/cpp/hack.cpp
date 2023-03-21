@@ -12,8 +12,7 @@
 #include "game.h"
 #include "utils.h"
 #include "xdl.h"
-#include "imgui.h"
-#include "KittyMemory/MemoryPatch.h"
+#include "imgui/imgui.h"
 #include "imgui/backends/imgui_impl_opengl3.h"
 #include "imgui/backends/imgui_impl_android.h"
 #include "functions.h"
@@ -22,7 +21,12 @@
 #include "Draw/Include.h"
 #include "Mono/MonoString.cpp"
 #include "Unity/Quaternion.hpp"
+#include "Includes/Logger.h"
+#include "Includes/obfuscate.h"
 #include "Includes/Utils.h"
+#include "KittyMemory/MemoryPatch.h"
+#include "Includes/Dobby/dobby.h"
+#include "Includes/Macros.h"
 #define targetLibName OBFUSCATE("libil2cpp.so")
 
 static int glHeight, glWidth;
