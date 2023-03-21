@@ -7,7 +7,7 @@
 #include <cstring>
 #include <string>
 #include <cstdlib>
-//#include "Logger.h"
+#include "Logger.h"
 //#include "Unity/unity.h"
 typedef unsigned long DWORD;
 static uintptr_t libBase;
