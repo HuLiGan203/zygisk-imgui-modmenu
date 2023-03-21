@@ -27,6 +27,7 @@
 
 static int glHeight, glWidth;
 static bool g_IsSetup = false;
+uintptr_t address;
 static std::string g_IniFileName = "";
 static utils::module_info g_TargetModule{};
 
