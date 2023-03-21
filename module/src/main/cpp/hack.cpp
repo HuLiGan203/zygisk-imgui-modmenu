@@ -23,6 +23,7 @@
 #include "Unity/Quaternion.hpp"
 #include "KittyMemory/MemoryPatch.h"
 #include "Includes/Dobby/dobby.h"
+#include "Includes/Utils.h"
 #define targetLibName OBFUSCATE("libil2cpp.so")
 
 static int glHeight, glWidth;
