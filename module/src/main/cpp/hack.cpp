@@ -10,7 +10,7 @@
 #include "hack.h"
 #include "log.h"
 #include "game.h"
-//#include "utils.h"
+#include "utils.h"
 #include "xdl.h"
 #include "imgui.h"
 #include "KittyMemory/MemoryPatch.h"
