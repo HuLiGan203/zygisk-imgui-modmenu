@@ -21,12 +21,8 @@
 #include "Draw/Include.h"
 #include "Mono/MonoString.cpp"
 #include "Unity/Quaternion.hpp"
-#include "Includes/Logger.h"
-#include "Includes/obfuscate.h"
-#include "Includes/Utils.h"
 #include "KittyMemory/MemoryPatch.h"
 #include "Includes/Dobby/dobby.h"
-#include "Includes/Macros.h"
 #define targetLibName OBFUSCATE("libil2cpp.so")
 
 static int glHeight, glWidth;
