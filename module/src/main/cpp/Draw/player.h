@@ -30,7 +30,7 @@ void Player_update(void *player) {
     if (player != NULL) {
         
         
-        bool isMine = *(bool *) ((uint64_t) player + 0x90);
+        bool isMine = *(bool *) ((uint64_t) player + 0x158);
         if (isMine) {
             myPlayer = player;
         }
