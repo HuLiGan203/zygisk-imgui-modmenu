@@ -22,14 +22,10 @@
 #include "Mono/MonoString.cpp"
 #include "Unity/Quaternion.hpp"
 #include "KittyMemory/MemoryPatch.h"
-#include "Includes/Dobby/dobby.h"
-#include "Includes/Utils.h"
-#include "And64InlineHook/And64InlineHook.cpp"
-#define targetLibName OBFUSCATE("libil2cpp.so")
+#include "test.h"
 
 static int glHeight, glWidth;
 static bool g_IsSetup = false;
-uintptr_t address;
 static std::string g_IniFileName = "";
 static utils::module_info g_TargetModule{};
 
@@ -247,7 +243,7 @@ void hack_start(const char *_game_data_dir) {
     } while (g_TargetModule.size <= 0);
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
 
-    /* TODO: hooking/patching here
+    //TODO:hooking/patching here
      WorldToScreenPoint = (Vector3(*)(void*, Vector3)) 
               getAddresss((0x1c21ff4));//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
@@ -264,35 +260,11 @@ void hack_start(const char *_game_data_dir) {
                getAddresss((0x1c22668));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
                getAddresss((0x1790ac0));//Player name
-	match = (void*(*)()))
-	            getAbsoluteAddress("libil2cpp.so", 0xA61004);//Stop Esp
+	/*match = (void*(*)()))
+	            getAbsoluteAddress("libil2cpp.so", 0xA61004);*/
 				
     DobbyHook((void *) getAddresss((0x26bda8c)), (void *) Player_update, (void **) &old_Player_update);*/
-	
-	WorldToScreenPoint = (Vector3(*)(void*, Vector3)) 
-                getAbsoluteAddress("libil2cpp.so", 0x1c21ff4);//Camera WorldToScreenPoint(Vector3 position)
-    Transform_get_position = (Vector3 (*)(void*)) 
-                getAbsoluteAddress("libil2cpp.so", 0x1c40818);//Transform get_position
-    get_forward = (Vector3 (*)(void*)) 
-                getAbsoluteAddress("libil2cpp.so", 0x1c41210);//Transform get_forward
-    get_position = (void (*)(void *, Vector3)) 
-                getAbsoluteAddress("libil2cpp.so", 0x1c40878);//Transform get_position_Injected
-    set_position = (void (*)(void *, Vector3)) 
-                getAbsoluteAddress("libil2cpp.so", 0x1c40920);//Transform set_position_Injected
-    get_transform = (void *(*)(void*)) 
-                getAbsoluteAddress("libil2cpp.so", 0x1c246a8);//Component get_transform
-    get_main = (void*(*)()) 
-                getAbsoluteAddress("libil2cpp.so", 0x1c22668);//Camera get_main  
-    PlayerName = (MonoString *(*)(void *))
-                getAbsoluteAddress("libil2cpp.so", 0x1790ac0);//Player name
-	/*match = (void*(*)()))
-	            getAbsoluteAddress("libil2cpp.so", 0xA61004);//Stop Esp*/
-				
-    A64HookFunction((void *)getAbsoluteAddress("libil2cpp.so", 0x26bda8c),
-                                            (void *) &Player_update,
-                                            (void **) &old_Player_update);
-    
-	
+			  
      hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
      hexPatches.bypass2 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bc, "00 00 00 00");
      hexPatches.bypass3 = MemoryPatch::createWithHex("libil2cpp.so", 0x7be, "00 00 00 00");
