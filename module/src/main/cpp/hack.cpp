@@ -53,7 +53,7 @@ Vector3 getPosition(void *player){
 }
 
 int GetPlayerHealth(void *player) {
-    return *(float *) ((uint64_t) player + 0x178);
+    return *(float *) ((uint64_t) player + 0x110);
 } 
 
 bool PlayerAlive(void *player) {
@@ -259,7 +259,7 @@ void hack_start(const char *_game_data_dir) {
     get_main = (void*(*)()) 
                getAddresss((0x1c22668));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
-               getAddresss((0x1790ac0));//Player name
+               getAddresss((0x128));//Player name
 	/*match = (void*(*)()))
 	            getAbsoluteAddress("libil2cpp.so", 0xA61004);*/
 				
