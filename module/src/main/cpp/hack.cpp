@@ -6,6 +6,14 @@
 #include <string>
 #include <EGL/egl.h>
 #include <GLES3/gl3.h>
+#include <list>
+#include <vector>
+#include <string.h>
+#include <pthread.h>
+#include <thread>
+#include <jni.h>
+#include <fstream>
+#include <iostream>
 
 #include "hack.h"
 #include "log.h"
