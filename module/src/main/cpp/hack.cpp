@@ -43,9 +43,9 @@ HOOKAF(void, Input, void *thiz, void *ex_ab, void *ex_ac) {
     return;
 }
 
-struct My_Patches {
+/*struct My_Patches {
 MemoryPatch Sh, bypass1, bypass2, bypass3;
-} hexPatches;
+} hexPatches;*/
 
 void *(*get_main)();
 
@@ -252,36 +252,36 @@ void hack_start(const char *_game_data_dir) {
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
 
     //TODO:hooking/patching here
-     WorldToScreenPoint = (Vector3(*)(void*, Vector3)) 
-              getAddresss((0x1c22384));//Camera WorldToScreenPoint(Vector3 position)
+     WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
+              getAddresss((0x1c2da74));//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
-              getAddresss((0x1c40818));//Transform get_position
+              getAddresss((0x1c4bf08 ));//Transform get_position
     get_forward = (Vector3 (*)(void*)) 
-              getAddresss((0x1c41210));//Transform get_forward
+              getAddresss((0x1c4c900));//Transform get_forward
     get_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x1c40878));//Transform get_position_Injected
+               getAddresss((0x1c4bf68));//Transform get_position_Injected
     set_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x1c40920));//Transform set_position_Injected
+               getAddresss((0x1c4c010));//Transform set_position_Injected
     get_transform = (void *(*)(void*)) 
-               getAddresss((0x1c246a8));//Component get_transform
+               getAddresss((0x1c2fd98));//Component get_transform
     get_main = (void*(*)()) 
-               getAddresss((0x1c2269c));//Camera get_main  
+               getAddresss((0x1c2dd8c));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
                getAddresss((0x2d6b984));//Player name
 	/*match = (void*(*)()))
 	            getAbsoluteAddress("libil2cpp.so", 0xA61004);*/
 				
-    DobbyHook((void *) getAddresss((0x2b98ae0)), (void *) Player_update, (void **) &old_Player_update);
+    DobbyHook((void *) getAddresss((0x2b8ce78)), (void *) Player_update, (void **) &old_Player_update);
 			  
-     hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
+     /*hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
      hexPatches.bypass2 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bc, "00 00 00 00");
      hexPatches.bypass3 = MemoryPatch::createWithHex("libil2cpp.so", 0x7be, "00 00 00 00");
     	
-     hexPatches.bypass1.Modify();//Anti detect 
-     hexPatches.bypass2.Modify();//
-     hexPatches.bypass3.Modify();//Anti detect 
+     hexPatches.bypass1.Modify();Anti detect 
+     hexPatches.bypass2.Modify();
+     hexPatches.bypass3.Modify();Anti detect 
 	
-    	/*
+    	
  01 00 A0 E3 1E FF 2F E1 = 1/True
  00 00 A0 E3 1E FF 2F E1 = 0/False
  FA 04 44 E3 1E FF 2F E1 = FLOAT/2000
