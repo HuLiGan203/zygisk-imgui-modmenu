@@ -295,20 +295,6 @@ void hack_start(const char *_game_data_dir) {
  */
 }
 
-void *bugly_thread(void *) {
-    do {
-        sleep(99999);
-    } while (!isLibraryLoaded("libanogs.so"));
-    pthread_exit(nullptr);
-    return nullptr;
-}
-
-__attribute__((constructor))
-void lib_main() {
-    pthread_t bugly;
-    pthread_create(&bugly, NULL, bugly_thread, NULL)
-}
-
 void hack_prepare(const char *_game_data_dir) {
     LOGI("hack thread: %d", gettid());
     int api_level = utils::get_android_api_level();
