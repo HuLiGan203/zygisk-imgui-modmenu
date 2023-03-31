@@ -253,25 +253,25 @@ void hack_start(const char *_game_data_dir) {
 
     //TODO:hooking/patching here
      WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
-              getAddresss((0x1c2da74));//Camera WorldToScreenPoint(Vector3 position)
+              getAddresss((0x1c2b1f4));//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
-              getAddresss((0x1c4bf08 ));//Transform get_position
+              getAddresss((0x1c49688 ));//Transform get_position
     get_forward = (Vector3 (*)(void*)) 
-              getAddresss((0x1c4c900));//Transform get_forward
+              getAddresss((0x1c4a080));//Transform get_forward
     get_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x1c4bf68));//Transform get_position_Injected
+               getAddresss((0x1c496e8));//Transform get_position_Injected
     set_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x1c4c010));//Transform set_position_Injected
+               getAddresss((0x1c49790));//Transform set_position_Injected
     get_transform = (void *(*)(void*)) 
-               getAddresss((0x1c2fd98));//Component get_transform
+               getAddresss((0x1c2d518));//Component get_transform
     get_main = (void*(*)()) 
-               getAddresss((0x1c2dd8c));//Camera get_main  
+               getAddresss((0x1c2b50c));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
-               getAddresss((0x2d6b984));//Player name
+               getAddresss((0x23270fc));//Player name
 	/*match = (void*(*)()))
 	            getAbsoluteAddress("libil2cpp.so", 0xA61004);*/
 				
-    DobbyHook((void *) getAddresss((0x2b8ce78)), (void *) Player_update, (void **) &old_Player_update);
+    DobbyHook((void *) getAddresss((0x2b8e10c)), (void *) Player_update, (void **) &old_Player_update);
 			  
      /*hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
      hexPatches.bypass2 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bc, "00 00 00 00");
