@@ -13,7 +13,7 @@ namespace Vars {
 } 
 	 namespace Player {
 	 bool func1 = false;
-	 float func2 = 0.0f;
+	 float Gravity = 0.0f;
 	 static bool Chams1 = false;
      static bool Chams2 = false;
      static bool Chams3 = false;
