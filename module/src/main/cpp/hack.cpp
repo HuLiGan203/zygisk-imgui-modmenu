@@ -145,7 +145,7 @@ ImGui::Checkbox("Function", &Vars::Other::func10);
       if (Vars::Esp::start) {		  
             std::string Allplayers;     
             Allplayers += "Near People: ";
-            Allplayers += std::to_string((int32_t) players.size());
+            Allplayers += std::to_string((int64_t) players.size());
             DrawAddLine::DrawText2(80.0f, ImVec2(glWidth * 0.40f - 0.0f, glHeight * 0.0f + 85.0f), ImVec4(0, 1, 1, 1), Allplayers.c_str());             			
 	    	for (int i = 0; i < players.size(); i++) {
                         
