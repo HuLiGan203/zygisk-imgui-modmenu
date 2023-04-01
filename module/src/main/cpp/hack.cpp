@@ -117,8 +117,8 @@ ImGui::EndChild();
 else if (tabb == 1) {
 ImGui::BeginChild("", ImVec2(780.0f,400.0f), true);
 ImGui::Checkbox("New", &Vars::Player::func1);	
-ImGui::Text("G:");
-ImGui::SliderFloat("", &Vars::Player::func2, -50.0f, 50.0f);
+ImGui::Text("Fly:");
+ImGui::SliderFloat("", &Vars::Player::Gravity, -50.0f, 50.0f);
 }
 
 else if (tabb == 2) {
