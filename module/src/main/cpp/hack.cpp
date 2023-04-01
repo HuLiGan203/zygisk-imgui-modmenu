@@ -145,7 +145,7 @@ ImGui::Checkbox("Function", &Vars::Other::func10);
       if (Vars::Esp::start) {		  
             std::string Allplayers;     
             Allplayers += "Near People: ";
-            Allplayers += std::to_string((int64_t) players.size());
+            Allplayers += std::to_string((int32_t) players.size());
             DrawAddLine::DrawText2(80.0f, ImVec2(glWidth * 0.40f - 0.0f, glHeight * 0.0f + 85.0f), ImVec4(0, 1, 1, 1), Allplayers.c_str());             			
 	    	for (int i = 0; i < players.size(); i++) {
                         
@@ -265,7 +265,7 @@ void hack_start(const char *_game_data_dir) {
     get_transform = (void *(*)(void*)) 
                getAddresss((0x1c2d518));//Component get_transform
     get_main = (void*(*)()) 
-               getAddresss((0x1c0ce70));//Camera get_main  
+               getAddresss((0x236e73c));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
                getAddresss((0x23270fc));//Player name
 	/*match = (void*(*)()))
