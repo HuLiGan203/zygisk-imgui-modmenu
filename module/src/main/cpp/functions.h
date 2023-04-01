@@ -14,6 +14,15 @@ namespace Vars {
 	 namespace Player {
 	 bool func1 = false;
 	 float Gravity = 0.0f;
+         void (*_gravity)(void *instance);
+         void gravity(void *instance){
+         if(Gravity){
+         *(float *)((uint64_t)
+         instance + 0xc8) = Gravity;  
+       }
+        return _gravity(instance);
+    }
+
 	 static bool Chams1 = false;
      static bool Chams2 = false;
      static bool Chams3 = false;
