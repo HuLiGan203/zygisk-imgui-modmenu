@@ -333,4 +333,3 @@ void hack_prepare(const char *_game_data_dir) {
 
     hack_start(_game_data_dir);
 }
-
