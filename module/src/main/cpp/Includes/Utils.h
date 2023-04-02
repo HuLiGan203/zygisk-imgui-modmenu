@@ -8,7 +8,6 @@
 #include <string>
 #include <cstdlib>
 #include "Logger.h"
-#include "Unity/Unity.h"
 typedef unsigned long DWORD;
 static uintptr_t libBase;
 const char* libName = "libil2cpp.so";
