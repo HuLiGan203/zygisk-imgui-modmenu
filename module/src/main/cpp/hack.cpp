@@ -31,7 +31,6 @@
 #include "Mono/MonoString.cpp"
 #include "Unity/Quaternion.hpp"
 #include "KittyMemory/MemoryPatch.h"
-#include "test.h"
 
 static int glHeight, glWidth;
 static bool g_IsSetup = false;
