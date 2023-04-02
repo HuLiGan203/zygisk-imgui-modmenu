@@ -272,10 +272,10 @@ void *hack_thread(void *) {
 	/*match = (void*(*)()))
 	            getAbsoluteAddress("libil2cpp.so", 0xA61004);//Stop Esp*/
 				
-    A64HookFunction((void *)getAbsoluteAddress("libil2cpp.so", 0x2b8e10c),
+    MSHookFunction((void *)getAbsoluteAddress("libil2cpp.so", 0x2b8e10c),
                                             (void *) &Player_update,
                                             (void **) &old_Player_update);
-    A64HookFunction((void *)getAbsoluteAddress("libil2cpp.so", 0x27aa960), 
+    MSHookFunction((void *)getAbsoluteAddress("libil2cpp.so", 0x27aa960), 
 		                            (void *) &Vars::Player::gravity, 
 		                            (void **) &Vars::Player::_gravity);
 	
