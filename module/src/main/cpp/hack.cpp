@@ -21,6 +21,7 @@
 #include "Includes/Logger.h"
 #include "Includes/obfuscate.h"
 #include "Includes/Utils.h"
+#include "includes/Dobby/dobby.h"
 //#include "Includes/Macros.h"
 #include "xdl.h"
 #include "imgui/imgui.h"
