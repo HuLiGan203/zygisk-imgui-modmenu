@@ -34,9 +34,9 @@
 #include "Mono/MonoString.cpp"
 #include "Unity/Quaternion.hpp"
 #include "KittyMemory/MemoryPatch.h"
-#include And64InlineHook/And64InlineHook.hpp
-#include Substrate/SubstrateHook.h
-#include Substrate/CydiaSubstrate.h
+#include "And64InlineHook/And64InlineHook.hpp"
+#include "Substrate/SubstrateHook.h"
+#include "Substrate/CydiaSubstrate.h"
 
 static int glHeight, glWidth;
 static bool g_IsSetup = false;
