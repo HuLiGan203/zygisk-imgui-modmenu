@@ -35,8 +35,6 @@
 
 static int glHeight, glWidth;
 static bool g_IsSetup = false;
-static std::string g_IniFileName = "";
-static utils::module_info g_TargetModule{};
 
 HOOKAF(void, Input, void *thiz, void *ex_ab, void *ex_ac) {
     origInput(thiz, ex_ab, ex_ac);
@@ -244,15 +242,11 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
     return old_eglSwapBuffers(dpy, surface);
 }
 
-void hack_start(const char *_game_data_dir) {
-    LOGI("hack start | %s", _game_data_dir);
-    do {
-        sleep(1);
-        g_TargetModule = utils::find_module(TargetLibName);
-    } while (g_TargetModule.size <= 0);
-    LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
 
-    //TODO:hooking/patching here
+//--------MsHook-------//
+void *hack_thread(void *) {
+	
+
      WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
               getAddresss((0x1c2b1f4));//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
@@ -274,7 +268,11 @@ void hack_start(const char *_game_data_dir) {
 				
     DobbyHook((void *) getAddresss((0x2b8e10c)), (void *) Player_update, (void **) &old_Player_update);
     DobbyHook((void *) getAddresss((0x27aa960)), (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
-			  
+	
+ #if defined(aarch64)
+ //64-bit   
+ //32-bit
+	
      /*hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
      hexPatches.bypass2 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bc, "00 00 00 00");
      hexPatches.bypass3 = MemoryPatch::createWithHex("libil2cpp.so", 0x7be, "00 00 00 00");
@@ -295,26 +293,36 @@ void hack_start(const char *_game_data_dir) {
  E7 03 00 E3 1E FF 2F E1 = 999 INT
  DC 0F 0F E3 1E FF 2F E1 = 65500/INT
  */
+#else 
+	 
+    #endif
+    pthread_exit(nullptr);
+    return nullptr;
 }
 
-void hack_prepare(const char *_game_data_dir) {
-    LOGI("hack thread: %d", gettid());
-    int api_level = utils::get_android_api_level();
-    LOGI("api level: %d", api_level);
-    g_IniFileName = std::string(_game_data_dir) + "files/imgui.ini";
-    sleep(5);
-
-    void *sym_input = DobbySymbolResolver("/system/lib/libinput.so", "_ZN7android13InputConsumer21initializeMotionEventEPNS_11MotionEventEPKNS_12InputMessageE");
-    if (NULL != sym_input){
-        DobbyHook((void *)sym_input, (dobby_dummy_func_t) myInput, (dobby_dummy_func_t*)&origInput);
-    }
-    
-    void *egl_handle = xdl_open("libEGL.so", 0);
-    void *eglSwapBuffers = xdl_sym(egl_handle, "eglSwapBuffers", nullptr);
-    if (NULL != eglSwapBuffers) {
-        utils::hook((void*)eglSwapBuffers, (func_t)hook_eglSwapBuffers, (func_t*)&old_eglSwapBuffers);
-    }
-    xdl_close(egl_handle);
-
-    hack_start(_game_data_dir);
+void *imgui_go(void *) {
+    address = findLibrary("libil2cpp.so");
+    auto addr = (uintptr_t)dlsym(RTLD_NEXT, "eglSwapBuffers");
+    DobbyHook((void *)addr, (void *)hook_eglSwapBuffers, (void **)&old_eglSwapBuffers);
+    pthread_exit(nullptr);
+    return nullptr;  
 }
+
+void *bugly_thread(void *) {
+    do {
+        sleep(99999);
+    } while (!isLibraryLoaded("libanogs.so"));
+    pthread_exit(nullptr);
+    return nullptr;
+}
+
+__attribute__((constructor))
+void lib_main() {
+    pthread_t ptid;
+    pthread_create(&ptid, NULL, imgui_go, NULL);
+	pthread_t bugly;
+    pthread_create(&bugly, NULL, bugly_thread, NULL);
+    pthread_t hacks;
+    pthread_create(&hacks, NULL, hack_thread, NULL);
+}
+
