@@ -37,6 +37,7 @@
 
 static int glHeight, glWidth;
 static bool g_IsSetup = false;
+uintptr_t address;
 
 HOOKAF(void, Input, void *thiz, void *ex_ab, void *ex_ac) {
     origInput(thiz, ex_ab, ex_ac);
