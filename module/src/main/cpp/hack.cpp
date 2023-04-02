@@ -41,7 +41,8 @@
 
 static int glHeight, glWidth;
 static bool g_IsSetup = false;
-uintptr_t address;
+static std::string          g_IniFileName = "";
+static utils::module_info   g_TargetModule{};
 
 HOOKAF(void, Input, void *thiz, void *ex_ab, void *ex_ac) {
     origInput(thiz, ex_ab, ex_ac);
