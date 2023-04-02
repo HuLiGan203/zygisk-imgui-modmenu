@@ -28,7 +28,7 @@ set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${LINKER_FLAGS}")
 set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} ${LINKER_FLAGS}")
 
 include_directories(
-    Includes/Dobby
+    Dobby/include
     imgui
     imgui/backends
     xdl/include
