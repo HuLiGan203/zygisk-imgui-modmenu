@@ -18,6 +18,7 @@
 
 #include "hack.h"
 #include "game.h"
+#include "utils.h"
 #include "Includes/Logger.h"
 #include "Includes/obfuscate.h"
 #include "Includes/Utils.h"
