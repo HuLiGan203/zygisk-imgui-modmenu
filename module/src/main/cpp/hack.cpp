@@ -67,7 +67,7 @@ Vector3 getPosition(void *player){
 }
 
 int GetPlayerHealth(void *player) {
-    return *(float *) ((uint64_t) player + 0x110);
+    return *(float *) ((uint32_t) player + 0x110);
 } 
 
 bool PlayerAlive(void *player) {
