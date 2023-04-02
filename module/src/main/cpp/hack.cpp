@@ -245,28 +245,31 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
 //--------MsHook-------//
 void *hack_thread(void *) {
 	
-
-     WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
-              getAddresss((0x1c2b1f4));//Camera WorldToScreenPoint(Vector3 position)
+    WorldToScreenPoint = (Vector3(*)(void*, Vector3)) 
+                getAbsoluteAddress("libil2cpp.so", 0x1c2b1f4);//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
-              getAddresss((0x1c49688 ));//Transform get_position
+                getAbsoluteAddress("libil2cpp.so", 0x1c49688);//Transform get_position
     get_forward = (Vector3 (*)(void*)) 
-              getAddresss((0x1c4a080));//Transform get_forward
+                getAbsoluteAddress("libil2cpp.so", 0x1c4a080);//Transform get_forward
     get_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x1c496e8));//Transform get_position_Injected
+                getAbsoluteAddress("libil2cpp.so", 0x1c496e8);//Transform get_position_Injected
     set_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x1c49790));//Transform set_position_Injected
+                getAbsoluteAddress("libil2cpp.so", 0x1c49790);//Transform set_position_Injected
     get_transform = (void *(*)(void*)) 
-               getAddresss((0x1c2d518));//Component get_transform
+                getAbsoluteAddress("libil2cpp.so", 0x1c2d518);//Component get_transform
     get_main = (void*(*)()) 
-               getAddresss((0x1c2b4d8));//Camera get_main  
+                getAbsoluteAddress("libil2cpp.so", 0x1c2b4d8);//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
-               getAddresss((0x23270fc));//Player name
+                getAbsoluteAddress("libil2cpp.so", 0x23270fc);//Player name
 	/*match = (void*(*)()))
-	            getAbsoluteAddress("libil2cpp.so", 0xA61004);*/
+	            getAbsoluteAddress("libil2cpp.so", 0xA61004);//Stop Esp*/
 				
-    DobbyHook((void *) getAddresss((0x2b8e10c)), (void *) Player_update, (void **) &old_Player_update);
-    DobbyHook((void *) getAddresss((0x27aa960)), (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
+    A64HookFunction((void *)getAbsoluteAddress("libil2cpp.so", 0x2b8e10c),
+                                            (void *) &Player_update,
+                                            (void **) &old_Player_update);
+    A64HookFunction((void *)getAbsoluteAddress("libil2cpp.so", 0x27aa960), 
+		                            (void *) &Vars::Player::gravity, 
+		                            (void **) &Vars::Player::_gravity);
 	
  #if defined(aarch64)
  //64-bit   
