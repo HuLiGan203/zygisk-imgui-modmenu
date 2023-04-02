@@ -21,7 +21,7 @@
 #include "Includes/Logger.h"
 #include "Includes/obfuscate.h"
 #include "Includes/Utils.h"
-#include "Includes/Macros.h"
+//#include "Includes/Macros.h"
 #include "xdl.h"
 #include "imgui/imgui.h"
 #include "imgui/imgui_internal.h"
@@ -34,6 +34,9 @@
 #include "Mono/MonoString.cpp"
 #include "Unity/Quaternion.hpp"
 #include "KittyMemory/MemoryPatch.h"
+#include And64InlineHook/And64InlineHook.hpp
+#include Substrate/SubstrateHook.h
+#include Substrate/CydiaSubstrate.h
 
 static int glHeight, glWidth;
 static bool g_IsSetup = false;
