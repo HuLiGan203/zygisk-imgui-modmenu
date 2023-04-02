@@ -5,7 +5,7 @@
 #include <dlfcn.h>
 #include <string>
 #include <EGL/egl.h>
-#include <GLES3/gl3.h>
+#include <GLES2/gl2.h>
 #include <list>
 #include <vector>
 #include <string.h>
