@@ -16,7 +16,6 @@
 #include <iostream>
 
 #include "hack.h"
-#include "log.h"
 #include "game.h"
 #include "Includes/Logger.h"
 #include "Includes/obfuscate.h"
