@@ -255,7 +255,7 @@ void hack_start(const char *_game_data_dir) {
      WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
               getAddresss((0x1c2b1f4));//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
-              getAddresss((0x1c49688 ));//Transform get_position
+              getAddresss((0x1c49688));//Transform get_position
     get_forward = (Vector3 (*)(void*)) 
               getAddresss((0x1c4a080));//Transform get_forward
     get_position = (void (*)(void *, Vector3)) 
