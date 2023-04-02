@@ -265,7 +265,7 @@ void hack_start(const char *_game_data_dir) {
     get_transform = (void *(*)(void*)) 
                getAddresss((0x1c2d518));//Component get_transform
     get_main = (void*(*)()) 
-               getAddresss((0x24fce74));//Camera get_main  
+               getAddresss((0x1c2b50c));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
                getAddresss((0x23270fc));//Player name
 	/*match = (void*(*)()))
