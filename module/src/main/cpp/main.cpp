@@ -3,7 +3,7 @@
 #include "hack.h"
 #include "zygisk.hpp"
 #include "game.h"
-#include "log.h"
+#include "Includes/Logger.h"
 
 using zygisk::Api;
 using zygisk::AppSpecializeArgs;
