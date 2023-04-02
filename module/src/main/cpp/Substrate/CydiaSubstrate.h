@@ -43,8 +43,7 @@ extern "C" {
 #define _disused \
     __attribute__((__unused__))
 
-#define _extern \
-    extern "C" __attribute__((__visibility__("default")))
+#define _extern extern "C" __attribute__((__visibility__("hidden")))
 
 #ifdef __cplusplus
 #define _default(value) = value
