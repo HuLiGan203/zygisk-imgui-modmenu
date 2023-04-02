@@ -14,7 +14,7 @@
 #include <jni.h>
 #include <fstream>
 #include <iostream>
-
+#define targetLibName OBFUSCATE("libil2cpp.so")
 #include "hack.h"
 #include "game.h"
 #include "Includes/Logger.h"
