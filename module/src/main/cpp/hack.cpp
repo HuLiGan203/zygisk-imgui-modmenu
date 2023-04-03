@@ -253,7 +253,7 @@ void hack_start(const char *_game_data_dir) {
 
     //TODO:hooking/patching here
      WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
-              getAddresss((0x1c2b1f4));//Camera WorldToScreenPoint(Vector3 position)
+              getAddresss((0x1c2b20c));//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
               getAddresss((0x1c49688));//Transform get_position
     get_forward = (Vector3 (*)(void*)) 
@@ -265,7 +265,7 @@ void hack_start(const char *_game_data_dir) {
     get_transform = (void *(*)(void*)) 
                getAddresss((0x1c2d518));//Component get_transform
     get_main = (void*(*)()) 
-               getAddresss((0x1c2b8c0));//Camera get_main  
+               getAddresss((0x1c2b4d8));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
                getAddresss((0x23270fc));//Player name
 	/*match = (void*(*)()))
