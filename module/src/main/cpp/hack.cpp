@@ -252,8 +252,8 @@ void hack_start(const char *_game_data_dir) {
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
 
     //TODO:hooking/patching here
-     WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
-              getAddresss((0x1c2b20c));//Camera WorldToScreenPoint(Vector3 position)
+    WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
+              getAddresss((0x1c2b1f4));//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
               getAddresss((0x1c49688));//Transform get_position
     get_forward = (Vector3 (*)(void*)) 
@@ -271,7 +271,7 @@ void hack_start(const char *_game_data_dir) {
 	/*match = (void*(*)()))
 	            getAbsoluteAddress("libil2cpp.so", 0xA61004);*/
 				
-    DobbyHook((void *) getAddresss((0x2b8e10c)), (void *) Player_update, (void **) &old_Player_update);
+    DobbyHook((void *) getAddresss((0x234b088)), (void *) Player_update, (void **) &old_Player_update);
     DobbyHook((void *) getAddresss((0x27aa960)), (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
 			  
      /*hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
