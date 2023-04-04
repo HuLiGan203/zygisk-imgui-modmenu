@@ -265,13 +265,13 @@ void hack_start(const char *_game_data_dir) {
     get_transform = (void *(*)(void*)) 
                getAddresss((0x1c2d518));//Component get_transform
     get_main = (void*(*)()) 
-               getAddresss((0x22df31c));//Camera get_main  
+               getAddresss((0x1c2b4d8));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
                getAddresss((0x23270fc));//Player name
 	/*match = (void*(*)()))
 	            getAbsoluteAddress("libil2cpp.so", 0xA61004);*/
 				
-    DobbyHook((void *) getAddresss((0x2b8e10c)), (void *) Player_update, (void **) &old_Player_update);
+    DobbyHook((void *) getAddresss((0x26e6ad4)), (void *) Player_update, (void **) &old_Player_update);
     DobbyHook((void *) getAddresss((0x27aa960)), (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
 			  
      /*hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
