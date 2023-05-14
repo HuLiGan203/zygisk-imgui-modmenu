@@ -252,26 +252,27 @@ void hack_start(const char *_game_data_dir) {
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
 
     //TODO:hooking/patching here
-    WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
-              getAddresss((0x1c2b1f4));//Camera WorldToScreenPoint(Vector3 position)
+  WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
+              getAddresss((0x1cd41b8));//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
-              getAddresss((0x1c49688));//Transform get_position
+              getAddresss((0x1cc42f4));//Transform get_position
     get_forward = (Vector3 (*)(void*)) 
-              getAddresss((0x1c4a080));//Transform get_forward
+              getAddresss((0x1cc4cec));//Transform get_forward
     get_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x1c496e8));//Transform get_position_Injected
+               getAddresss((0x1cc4354));//Transform get_position_Injected
     set_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x1c49790));//Transform set_position_Injected
+               getAddresss((0x1cc43fc));//Transform set_position_Injected
     get_transform = (void *(*)(void*)) 
-               getAddresss((0x1c2d518));//Component get_transform
+               getAddresss((0x1cd64dc));//Component get_transform
     get_main = (void*(*)()) 
-               getAddresss((0x1c2b4d8));//Camera get_main  
+               getAddresss((0x1cd449c));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
                getAddresss((0x23270fc));//Player name
 	/*match = (void*(*)()))
 	            getAbsoluteAddress("libil2cpp.so", 0xA61004);*/
 				
-    DobbyHook((void *) getAddresss((0x2b8e10c)), (void *) Player_update, (void **) &old_Player_update);
+    DobbyHook((void *) getAddresss((0x2d88cec)), (void *) Player_update, (void **) &old_Player_update);
+    
     DobbyHook((void *) getAddresss((0x27aa960)), (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
 			  
      /*hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
