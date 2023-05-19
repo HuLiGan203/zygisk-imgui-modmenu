@@ -32,6 +32,7 @@
 #include "KittyMemory/MemoryPatch.h"
 #include "Dobby/include/dobby.h"
 #include "Chams.h"
+#include "Includes/Utils.h"
 
 int glHeight, glWidth;
 static bool g_IsSetup = false;
