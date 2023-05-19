@@ -290,7 +290,7 @@ void SetupImGui() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
-    io.DisplaySize = ImVec2((int)glWidth, (int)glHeight);
+    io.DisplaySize = ImVec2((float)glWidth, (float)glHeight);
     ImGui_ImplOpenGL3_Init("#version 100");      
     io.Fonts->AddFontFromMemoryTTF(Roboto_Regular,22,29.0f);
     ImGui::GetStyle().ScaleAllSizes(9.0f);
@@ -309,12 +309,11 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
 
     ImGuiIO &io = ImGui::GetIO();
     ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplAndroid_NewFrame(glWidth, glHeight);
     ImGui::NewFrame();
     ImGui::HackWindow();
     ImGui::EndFrame();
     ImGui::Render();
-    glViewport(0, 0, (int)io.DisplaySize.x, (int)io.DisplaySize.y);
+    glViewport(0, 0, (float)io.DisplaySize.x, (float)io.DisplaySize.y);
     ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
     return old_eglSwapBuffers(dpy, surface);
 }
