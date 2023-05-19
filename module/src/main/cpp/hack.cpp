@@ -62,7 +62,7 @@ Vector3 getPosition(void *player){
 }
 
 int GetPlayerHealth(void *player) {
-    return *(float *) ((uint64_t) player + 0x110);
+    return *(float *) ((uint32_t) player + 0x110);
 } 
 
 bool PlayerAlive(void *player) {
@@ -220,7 +220,7 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
       if (Vars::Esp::start) {         
             std::string Allplayers;     
             Allplayers += "Near People: ";
-            Allplayers += std::to_string((int64_t) players.size());
+            Allplayers += std::to_string((int32_t) players.size());
             DrawAddLine::DrawText2(80.0f, ImVec2(glWidth * 0.40f - 0.0f, glHeight * 0.0f + 85.0f), ImVec4(0, 1, 1, 1), Allplayers.c_str());                         
             for (int i = 0; i < players.size(); i++) {
                         
@@ -265,7 +265,7 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
                 DrawAddLine::DrawHorizontalHealthBar(Vector2(playerRect.x, playerRect.y - 12), boxWidth, 100.0f,GetPlayerHealth(Player), ImVec4(1, 0, 0, 1));
                 std::string GetHp;      
                 GetHp += "Hp: ";
-                GetHp += std::to_string((int64_t) GetPlayerHealth(Player));        
+                GetHp += std::to_string((int32_t) GetPlayerHealth(Player));        
                 DrawAddLine::DrawText2(23.0f, ImVec2(playerRect.x + (playerRect.width / 0.78), playerRect.y - 20), ImVec4(0, 1, 1, 1), GetHp.c_str());  
                 }
                 
