@@ -131,22 +131,6 @@ ImGui::Checkbox("1", &Vars::Weapon::func4);
 ImGui::SameLine();
 ImGui::Checkbox("2", &Vars::Weapon::func5);     
 ImGui::Checkbox("FastShoot", &Vars::Weapon::func6);
-if (ImGui::Combo("Offsets", &itemOffset, "0Test0\0Test1\0Test2\0Test3\0")) {
-                switch (itemOffset) {
-                case 0:
-                    #define offsetNow 0x2e06e64 
-                    break;
-                case 1:
-                    #define offsetNow 0x302cc9c
-                    break;
-                case 2:
-                    #define offsetNow 0x30325e0 
-                    break;
-                case 3:
-                    #define offsetNow 0x3032914
-                    break;
-                }
-            }
 }
 
 
