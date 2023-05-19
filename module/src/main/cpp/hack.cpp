@@ -30,7 +30,7 @@
 #include "Mono/MonoString.cpp"
 #include "Unity/Quaternion.hpp"
 #include "KittyMemory/MemoryPatch.h"
-#include "test.h"
+#include "Dobby/include/dobby.h"
 #include "Chams.h"
 
 int glHeight, glWidth;
@@ -336,7 +336,7 @@ ProcMap il2cppMap;
         LogShaders();
         Wallhack();
            
-  WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
+WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
               getAddresss((0x1cd4448));//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
               getAddresss((0x1cc4584));//Transform get_position
@@ -351,14 +351,13 @@ ProcMap il2cppMap;
     get_main = (void*(*)()) 
                getAddresss((0x1cd472c));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
-               getAddresss((0x23270fc));//Player name
-	/*match = (void*(*)()))
-	            getAbsoluteAddress("libil2cpp.so", 0xA61004);*/
+               getAddresss((0x0000000));//Player name
+	
 				
     DobbyHook((void *) getAddresss((0x2d8c3b0)), (void *) Player_update, (void **) &old_Player_update);
-    
-    DobbyHook((void *) getAddresss((0x2354f84)), (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
-			  
+
+    DobbyHook((void *) getAddresss((0x0000000)), (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
+
      /*hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
      hexPatches.bypass2 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bc, "00 00 00 00");
      hexPatches.bypass3 = MemoryPatch::createWithHex("libil2cpp.so", 0x7be, "00 00 00 00");
