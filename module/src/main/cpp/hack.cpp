@@ -137,7 +137,7 @@ ImGui::Checkbox("FastShoot", &Vars::Weapon::func6);
 
 else if (tabb == 3) {
 ImGui::BeginChild("", ImVec2(780.0f,400.0f), true);
-  if (ImGui::Combo("Shaders", &itemChams, "_MainLightPosition\0_BaseMap\0_BaseMap_ST\0_MainTex_ST\0")) {
+  if (ImGui::Combo("Shaders", &itemChams, "_MainLightPosition\0_BaseMap\0_unity_SpecCube0\0_MainTex_ST\0")) {
                 switch (itemChams) {
                 case 0:
                     setShader("_MainLightPosition");
@@ -146,7 +146,7 @@ ImGui::BeginChild("", ImVec2(780.0f,400.0f), true);
                     setShader("_BaseMap");
                     break;
                 case 2:
-                    setShader("_BaseMap_ST");
+                  setShader("unity_SpecCube0");
                     break;
                 case 3:
                     setShader("_MainTex_ST");
