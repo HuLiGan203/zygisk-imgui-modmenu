@@ -31,6 +31,7 @@
 #include "Unity/Quaternion.hpp"
 #include "KittyMemory/MemoryPatch.h"
 #include "test.h"
+#include "Chams.h"
 
 int glHeight, glWidth;
 static bool g_IsSetup = false;
