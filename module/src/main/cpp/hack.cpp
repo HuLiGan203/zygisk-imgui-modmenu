@@ -73,29 +73,29 @@ bool IsPlayerDead(void *player) {
 
 static int tabb = 0;
 //-------------------//
-void ImGui::ShowExampleGameWindows(bool* p_open){
-    const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
+void ImGui::HackWindow(bool* p_open){
+   const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
     ImGui::SetNextWindowPos(ImVec2(main_viewport->WorkPos.x + 250, main_viewport->WorkPos.y + 12), ImGuiCond_FirstUseEver);
     ImGui::SetNextWindowSize(ImVec2(850, 680), ImGuiCond_FirstUseEver);
     
 if (ImGui::Begin("0xHack", p_open)){
-		
-		if (ImGui::Button("Esp", ImVec2(200.f, 0.0f))) {					
-	    tabb = 0;		
+        
+        if (ImGui::Button("Esp", ImVec2(200.f, 0.0f))) {                    
+        tabb = 0;       
 }   
-		ImGui::SameLine(0.f, 2.f);
-       	if (ImGui::Button("Player", ImVec2(200.f, 0.0f))) {
-	    tabb = 1;
+        ImGui::SameLine(0.f, 2.f);
+        if (ImGui::Button("Player", ImVec2(200.f, 0.0f))) {
+        tabb = 1;
 }
         ImGui::SameLine(0.f, 2.f);        
-		if (ImGui::Button("Weapon", ImVec2(200.f, 0.0f))) {
-		tabb = 2;
+        if (ImGui::Button("Weapon", ImVec2(200.f, 0.0f))) {
+        tabb = 2;
 }
         ImGui::SameLine(0.f, 2.f);
         if(ImGui::Button("Other", ImVec2(200.f, 0.0f))) {
-	    tabb = 3;
-}	    
-	       		       
+        tabb = 3;
+}       
+                       
 if (tabb == 0) {
 ImGui::BeginChild("", ImVec2(780.0f,400.0f), true);
 ImGui::Checkbox("Open Esp", &Vars::Esp::start);
@@ -116,8 +116,7 @@ ImGui::EndChild();
 
 else if (tabb == 1) {
 ImGui::BeginChild("", ImVec2(780.0f,400.0f), true);
-ImGui::Checkbox("New", &Vars::Player::func1);	
-ImGui::Text("Fly:");
+ImGui::Checkbox("Fly", &Vars::Player::func1);   
 ImGui::SliderFloat("", &Vars::Player::Gravity, -50.0f, 50.0f);
 }
 
@@ -127,27 +126,116 @@ ImGui::Checkbox("Damage", &Vars::Weapon::func3);
 ImGui::Text("InfinityAmmo:");
 ImGui::Checkbox("1", &Vars::Weapon::func4);
 ImGui::SameLine();
-ImGui::Checkbox("2", &Vars::Weapon::func5);		
+ImGui::Checkbox("2", &Vars::Weapon::func5);     
 ImGui::Checkbox("FastShoot", &Vars::Weapon::func6);
+if (ImGui::Combo("Offsets", &itemOffset, "0Test0\0Test1\0Test2\0Test3\0")) {
+                switch (itemOffset) {
+                case 0:
+                    #define offsetNow 0x2e06e64 
+                    break;
+                case 1:
+                    #define offsetNow 0x302cc9c
+                    break;
+                case 2:
+                    #define offsetNow 0x30325e0 
+                    break;
+                case 3:
+                    #define offsetNow 0x3032914
+                    break;
+                }
+            }
 }
+
+
 
 else if (tabb == 3) {
 ImGui::BeginChild("", ImVec2(780.0f,400.0f), true);
-ImGui::Checkbox("Function", &Vars::Other::func7);
-ImGui::SameLine();
-ImGui::Checkbox("Function", &Vars::Other::func8);
-ImGui::Checkbox("Function", &Vars::Other::func9);
-ImGui::SameLine();
-ImGui::Checkbox("Function", &Vars::Other::func10);
-}	
+  if (ImGui::Combo("Shaders", &itemChams, "_MainLightPosition\0_BaseMap\0_BaseMap_ST\0_MainTex_ST\0")) {
+                switch (itemChams) {
+                case 0:
+                    setShader("_MainLightPosition");
+                    break;
+                case 1:
+                    setShader("_BaseMap");
+                    break;
+                case 2:
+                    setShader("_BaseMap_ST");
+                    break;
+                case 3:
+                    setShader("_MainTex_ST");
+                    break;
+                }
+            }
+if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
+                if (Vars::Player::Chams1 == false) {
+                    SetWallhack(false);
+                } else {
+                    SetWallhack(true);
+                }
+            }
+            if (ImGui::Checkbox("Shading Chams", &Vars::Player::Chams2)) {
+                if (Vars::Player::Chams2 == false) {
+                    SetWallhackS(false);
+                } else {
+                    SetWallhackS(true);
+                }
+            }
+            if (ImGui::Checkbox("Wireframe Chams", &Vars::Player::Chams3)) {
+                if (Vars::Player::Chams3 == false) {
+                    SetWallhackW(false);
+                } else {
+                    SetWallhackW(true);
+                }
+            }
+            if (ImGui::Checkbox("Glow Chams", &Vars::Player::Chams4)) {
+                if (Vars::Player::Chams4 == false) {
+                    SetWallhackG(false);
+                } else {
+                    SetWallhackG(true);
+                }
+            }
+            if (ImGui::Checkbox("Outline Chams", &Vars::Player::Chams5)) {
+                if (Vars::Player::Chams5 == false) {
+                    SetWallhackO(false);
+                } else {
+                    SetWallhackO(true);
+                }
+            }
+            if (ImGui::Checkbox("Rainbow Chams", &Vars::Player::Chams7)) {
+                if (Vars::Player::Chams7 == false) {
+                    SetRainbow(false);
+                } else {
+                    SetRainbow(true);
+                }
+            }
+            if (ImGui::Checkbox("SetRainbow", &Vars::Player::Chams8)) {
+                if (Vars::Player::Chams8 == false) {
+                    SetRainbow1(false);
+                } else {
+                    SetRainbow1(true);
+                }
+            }
+            if (ImGui::SliderInt("Line Width", &Vars::Player::Color1, 0, 10)) {
+                SetW(Vars::Player::Color1);
+            }
+            if (ImGui::SliderInt("Color Red", &Vars::Player::Color2, 0, 255)) {
+                SetR(Vars::Player::Color2);
+            }
+            if (ImGui::SliderInt("Color Green", &Vars::Player::Color3, 0, 255)) {
+                SetG(Vars::Player::Color3);
+            }
+            if (ImGui::SliderInt("Color Blue", &Vars::Player::Color4, 0, 255)) {
+                SetB(Vars::Player::Color4);
+            } 
+}   
    } 
    
-      if (Vars::Esp::start) {		  
+      if (Vars::Esp::start) {         
             std::string Allplayers;     
             Allplayers += "Near People: ";
-            Allplayers += std::to_string((int32_t) players.size());
-            DrawAddLine::DrawText2(80.0f, ImVec2(glWidth * 0.40f - 0.0f, glHeight * 0.0f + 85.0f), ImVec4(0, 1, 1, 1), Allplayers.c_str());             			
-	    	for (int i = 0; i < players.size(); i++) {
+            Allplayers += std::to_string((int64_t) players.size());
+            DrawAddLine::DrawText2(80.0f, ImVec2(glWidth * 0.40f - 0.0f, glHeight * 0.0f + 85.0f), ImVec4(0, 1, 1, 1), Allplayers.c_str());                         
+            for (int i = 0; i < players.size(); i++) {
                         
             void *Player;
             if (i < players.size()) 
@@ -173,43 +261,44 @@ ImGui::Checkbox("Function", &Vars::Other::func10);
                                           ImVec2(HeadPosition.x + Vars::Esp::EnemyLineX,
                                                  glHeight - HeadPosition.y + Vars::Esp::EnemyLineY),
                                           ImVec4(1.0,0.921569,0.0156863,1.0), Vars::Esp::ThicknessLine);
-			    }						  
-		float boxHeight = abs(HeadPosition.y - BottomPosition.y) / 0.8f;
+                }                         
+        float boxHeight = abs(HeadPosition.y - BottomPosition.y) / 0.8f;
                 float boxWidth = boxHeight * 0.60f;
                 Rect playerRect(HeadPosition.x - (boxWidth / 2), (glHeight - HeadPosition.y - 5.0f), boxWidth, boxHeight);                   
                 if (Vars::Esp::box && PlayerAlive(Player)){
                 DrawAddLine::DrawBox(playerRect, ImVec4(0.00, 1.00, 1.00, 1.00));   
-			    }	
-			    if (Vars::Esp::crosshair ){
-				DrawAddLine::DrawCrosshair(ImVec4(0, 1, 1 ,1), Vector2(glWidth / 2, glHeight / 2), 15.0f); 
-				float AimFov = 320.0f;
+                }   
+                if (Vars::Esp::crosshair ){
+                DrawAddLine::DrawCrosshair(ImVec4(0, 1, 1 ,1), Vector2(glWidth / 2, glHeight / 2), 15.0f); 
+                float AimFov = 320.0f;
                 DrawAddLine::DrawCircle(ImVec4(1, 1, 0, 1), glWidth * 0.5f, glHeight * 0.5f, AimFov, false);
-			    }
-				
-				if (Vars::Esp::hp && PlayerAlive(Player)){
-			    DrawAddLine::DrawHorizontalHealthBar(Vector2(playerRect.x, playerRect.y - 12), boxWidth, 100.0f,GetPlayerHealth(Player), ImVec4(1, 0, 0, 1));
-				std::string GetHp;      
+                }
+                
+                if (Vars::Esp::hp && PlayerAlive(Player)){
+                DrawAddLine::DrawHorizontalHealthBar(Vector2(playerRect.x, playerRect.y - 12), boxWidth, 100.0f,GetPlayerHealth(Player), ImVec4(1, 0, 0, 1));
+                std::string GetHp;      
                 GetHp += "Hp: ";
-                GetHp += std::to_string((int32_t) GetPlayerHealth(Player));        
-				DrawAddLine::DrawText2(23.0f, ImVec2(playerRect.x + (playerRect.width / 0.78), playerRect.y - 20), ImVec4(0, 1, 1, 1), GetHp.c_str());  
-				}
-				
-				if(Vars::Esp::distance && PlayerAlive(Player)){
+                GetHp += std::to_string((int64_t) GetPlayerHealth(Player));        
+                DrawAddLine::DrawText2(23.0f, ImVec2(playerRect.x + (playerRect.width / 0.78), playerRect.y - 20), ImVec4(0, 1, 1, 1), GetHp.c_str());  
+                }
+                
+                if(Vars::Esp::distance && PlayerAlive(Player)){
                 char extra[30];
-                float DistanceTo = DrawAddLine::get_3D_Distance(MyPos.x, MyPos.y, MyPos.z, PlayerPos.x, PlayerPos.y, PlayerPos.z);  			
-                sprintf(extra, "%0.0f m", DistanceTo);					
-                DrawAddLine::DrawText2(23.0f, ImVec2(playerRect.x - (playerRect.width / 0.88), playerRect.y - 20), ImVec4(0, 1, 1, 1), extra);  					
-			    }
-			
-				if(Vars::Esp::nickname && PlayerAlive(Player)) {
-				MonoString *isPlayerName = PlayerName(Player);			
-				DrawAddLine::DrawText2(25.0f, ImVec2(playerRect.x + (boxWidth / 15.5), playerRect.y - 39), ImVec4(0, 1, 1, 1), isPlayerName->toChars()); 					
-				}
-	      	}
-		}		
+                float DistanceTo = DrawAddLine::get_3D_Distance(MyPos.x, MyPos.y, MyPos.z, PlayerPos.x, PlayerPos.y, PlayerPos.z);              
+                sprintf(extra, "%0.0f m", DistanceTo);                  
+                DrawAddLine::DrawText2(23.0f, ImVec2(playerRect.x - (playerRect.width / 0.88), playerRect.y - 20), ImVec4(0, 1, 1, 1), extra);                      
+                }
+            
+                if(Vars::Esp::nickname && PlayerAlive(Player)) {
+                MonoString *isPlayerName = PlayerName(Player);          
+                DrawAddLine::DrawText2(25.0f, ImVec2(playerRect.x + (boxWidth / 15.5), playerRect.y - 39), ImVec4(0, 1, 1, 1), isPlayerName->toChars());                    
+                }
+            }
+        }       
     }
    ImGui::End();
 }
+
 void SetupImGui() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
