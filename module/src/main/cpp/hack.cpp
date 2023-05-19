@@ -73,6 +73,8 @@ bool IsPlayerDead(void *player) {
 }
 
 static int tabb = 0;
+static int itemChams = 4;
+static int itemOffset = 4;
 //-------------------//
 void ImGui::HackWindow(bool* p_open){
    const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
@@ -342,6 +344,16 @@ void hack_start(const char *_game_data_dir) {
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
 
     //TODO:hooking/patching here
+    
+ProcMap il2cppMap;        
+        do {
+            il2cppMap = KittyMemory::getLibraryMap("libil2cpp.so");
+            sleep(1);
+        } while (!il2cppMap.isValid() && mlovinit());
+        setShader("_MainLightPosition");
+        LogShaders();
+        Wallhack();
+           
   WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
               getAddresss((0x1cd41b8));//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
