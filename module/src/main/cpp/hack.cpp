@@ -214,7 +214,7 @@ void SetupImGui() {
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
-    io.DisplaySize = ImVec2((float)glWidth, (float)glHeight);
+    io.DisplaySize = ImVec2((int)glWidth, (int)glHeight);
     ImGui_ImplOpenGL3_Init("#version 100");      
     io.Fonts->AddFontFromMemoryTTF(Roboto_Regular,22,29.0f);
     ImGui::GetStyle().ScaleAllSizes(9.0f);
