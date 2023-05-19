@@ -1,4 +1,4 @@
-namespace Vars {
+ namespace Vars {
      namespace Esp {
 	 static bool start = false;
 	 static bool line = false;
@@ -18,7 +18,7 @@ namespace Vars {
          void gravity(void *instance){
          if(Gravity){
          *(float *)((uint64_t)
-         instance + 0x48) = Gravity;  
+         instance + 0x00) = Gravity;  
        }
         return _gravity(instance);
     }
