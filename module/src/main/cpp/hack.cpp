@@ -32,7 +32,7 @@
 #include "KittyMemory/MemoryPatch.h"
 #include "test.h"
 
-static int glHeight, glWidth;
+int glHeight, glWidth;
 static bool g_IsSetup = false;
 static std::string g_IniFileName = "";
 static utils::module_info g_TargetModule{};
