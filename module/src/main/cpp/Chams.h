@@ -2,8 +2,7 @@
 #define HENZRY_CHAMS
 #include <GLES2/gl2.h>
 #include <dlfcn.h>
-#include <Substrate/SubstrateHook.h>
-#include <Substrate/CydiaSubstrate.h>
+#include "Includes/dobby.h"
 
 static void *handle;
 static const char* shaderName;
@@ -266,7 +265,7 @@ void LogShaders(){
     if(dlsym_error){
         return;
     }else{
-        MSHookFunction(reinterpret_cast<void*>(p_glGetUniformLocation), reinterpret_cast<void*>(new_glGetUniformLocation), reinterpret_cast<void**>(&old_glGetUniformLocation));
+        DobbyHook(reinterpret_cast<void*>(p_glGetUniformLocation), reinterpret_cast<void*>(new_glGetUniformLocation), reinterpret_cast<void**>(&old_glGetUniformLocation));
     }
 }
 
@@ -276,7 +275,7 @@ void Wallhack(){
     if(dlsym_error){
         return;
     }else{
-        MSHookFunction(reinterpret_cast<void*>(p_glDrawElements), reinterpret_cast<void*>(new_glDrawElements), reinterpret_cast<void**>(&old_glDrawElements));
+        DobbyHook(reinterpret_cast<void*>(p_glDrawElements), reinterpret_cast<void*>(new_glDrawElements), reinterpret_cast<void**>(&old_glDrawElements));
     }
 }
 
