@@ -339,7 +339,7 @@ ProcMap il2cppMap;
   WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
               getAbsoluteAddress("libil2cpp.so", 0x1cd4448);//Camera WorldToScreenPoint(Vector3 position)
        Transform_get_position = (Vector3 (*)(void*)) 
-              getAbsoluteAddress("libil2cpp.so", 0x1cc4584 );//Transform get_position
+              getAbsoluteAddress("libil2cpp.so", 0x1cc4584);//Transform get_position
        get_forward = (Vector3 (*)(void*)) 
               getAbsoluteAddress("libil2cpp.so", 0x1cc4f7c);//Transform get_forward
        get_position = (void (*)(void *, Vector3)) 
@@ -349,7 +349,7 @@ ProcMap il2cppMap;
        get_transform = (void *(*)(void*)) 
                getAbsoluteAddress("libil2cpp.so", 0x1cd676c);//Component get_transform
        get_main = (void*(*)()) 
-               getAbsoluteAddress("libil2cpp.so", 0x1cd472c );//Camera get_main  
+               getAbsoluteAddress("libil2cpp.so", 0x1cd472c);//Camera get_main  
        PlayerName = (MonoString *(*)(void *))
                getAbsoluteAddress("libil2cpp.so", 0x0000000);//Player name
    
