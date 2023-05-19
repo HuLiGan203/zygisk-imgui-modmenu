@@ -1,15 +1,15 @@
 namespace Vars {
      namespace Esp {
-	  bool start = false;
-	  bool line = false;
-	  bool box = false;	
-	  bool distance = false;
-	  bool hp = false;
-	  bool crosshair = false;
-	  bool nickname = false;
-	  float ThicknessLine = 2.0f;
-      float EnemyLineX = 0.0f;
-      float EnemyLineY = 0.0f;
+	 static bool start = false;
+	 static bool line = false;
+	 static bool box = false;	
+	 static bool distance = false;
+	 static bool hp = false;
+	 static bool crosshair = false;
+	 static bool nickname = false;
+	 static float ThicknessLine = 2.0f;
+     static float EnemyLineX = 0.0f;
+     static float EnemyLineY = 0.0f;
 } 
 	 namespace Player {
 	 bool func1 = false;
@@ -18,24 +18,24 @@ namespace Vars {
          void gravity(void *instance){
          if(Gravity){
          *(float *)((uint64_t)
-         instance + 0xc8) = Gravity;  
+         instance + 0x48) = Gravity;  
        }
         return _gravity(instance);
     }
 
-	  bool Chams1 = false;
-      bool Chams2 = false;
-      bool Chams3 = false;
-      bool Chams4 = false;
-      bool Chams5 = false;
-      bool Chams6 = false;
-      bool Chams7 = false;
-      bool Chams8 = false;
+	    static bool Chams1 = false;
+     static bool Chams2 = false;
+     static bool Chams3 = false;
+     static bool Chams4 = false;
+     static bool Chams5 = false;
+     static bool Chams6 = false;
+     static bool Chams7 = false;
+     static bool Chams8 = false;
 
-      int Color1 = 0;
-      int Color2 = 0;
-      int Color3 = 0;
-      int Color4 = 0;
+     static int Color1 = 0;
+     static int Color2 = 0;
+     static int Color3 = 0;
+     static int Color4 = 0;
 	
 }
      namespace Weapon {
