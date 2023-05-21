@@ -33,6 +33,7 @@
 #include "Dobby/include/dobby.h"
 #include "Chams.h"
 #include "Includes/Utils.h"
+#include "test.h"
 
 int glHeight, glWidth;
 static bool g_IsSetup = false;
