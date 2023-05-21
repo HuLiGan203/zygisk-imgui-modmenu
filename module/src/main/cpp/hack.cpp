@@ -338,29 +338,27 @@ ProcMap il2cppMap;
         Wallhack();
 
   WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
-              getAbsoluteAddress("libil2cpp.so", 0x1cd4448);//Camera WorldToScreenPoint(Vector3 position)
-       Transform_get_position = (Vector3 (*)(void*)) 
-              getAbsoluteAddress("libil2cpp.so", 0x1cc4584);//Transform get_position
-       get_forward = (Vector3 (*)(void*)) 
-              getAbsoluteAddress("libil2cpp.so", 0x1cc4f7c);//Transform get_forward
-       get_position = (void (*)(void *, Vector3)) 
-               getAbsoluteAddress("libil2cpp.so", 0x1cc45e4);//Transform get_position_Injected
-       set_position = (void (*)(void *, Vector3)) 
-               getAbsoluteAddress("libil2cpp.so", 0x1cc468c);//Transform set_position_Injected
-       get_transform = (void *(*)(void*)) 
-               getAbsoluteAddress("libil2cpp.so", 0x1cd676c);//Component get_transform
-       get_main = (void*(*)()) 
-               getAbsoluteAddress("libil2cpp.so", 0x1cd472c);//Camera get_main  
-       PlayerName = (MonoString *(*)(void *))
-               getAbsoluteAddress("libil2cpp.so", 0x0000000);//Player name
-   
-       DobbyHook((void *) getAbsoluteAddress("libil2cpp.so", 0x2d8c3b0),
-       (void *) Player_update, (void **) &old_Player_update);
-    
-       DobbyHook((void *) getAbsoluteAddress("libil2cpp.so", 0x0000000),     
-       (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
-	    
-			           
+              getAddresss((0x1cd4448));//Camera WorldToScreenPoint(Vector3 position)
+    Transform_get_position = (Vector3 (*)(void*)) 
+              getAddresss((0x1cc4584));//Transform get_position
+    get_forward = (Vector3 (*)(void*)) 
+              getAddresss((0x1cc4f7c));//Transform get_forward
+    get_position = (void (*)(void *, Vector3)) 
+               getAddresss((0x1cc45e4));//Transform get_position_Injected
+    set_position = (void (*)(void *, Vector3)) 
+               getAddresss((0x1cc468c));//Transform set_position_Injected
+    get_transform = (void *(*)(void*)) 
+               getAddresss((0x1cd676c));//Component get_transform
+    get_main = (void*(*)()) 
+               getAddresss((0x1cd472c));//Camera get_main  
+    PlayerName = (MonoString *(*)(void *))
+               getAddresss((0x0000000));//Player name
+	
+				
+    DobbyHook((void *) getAddresss((0x2d8c3b0)), (void *) Player_update, (void **) &old_Player_update);
+
+    DobbyHook((void *) getAddresss((0x0000000)), (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
+
 
      /*hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
      hexPatches.bypass2 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bc, "00 00 00 00");
