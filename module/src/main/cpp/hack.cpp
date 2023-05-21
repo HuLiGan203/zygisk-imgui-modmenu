@@ -4,6 +4,8 @@
 #include <unistd.h>
 #include <dlfcn.h>
 #include <string>
+#include <GLES2/gl2ext.h
+#include <GLES2/gl2platform.h
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 #include <list>
