@@ -353,7 +353,7 @@ ProcMap il2cppMap;
     get_main = (void*(*)()) 
                getAddresss((0x1cd472c));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
-               getAddresss((0x0000000));//Player name
+               getAddresss((0x2e0c0a8));//Player name
 	
 				
     DobbyHook((void *) getAddresss((0x2d8c3b0)), (void *) Player_update, (void **) &old_Player_update);
