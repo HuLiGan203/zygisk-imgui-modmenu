@@ -341,24 +341,24 @@ ProcMap il2cppMap;
         Wallhack();
 
   WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
-              getAddresss((0x1cd4448));//Camera WorldToScreenPoint(Vector3 position)
+              getAddresss((0x1cd4450));//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
-              getAddresss((0x1cc4584));//Transform get_position
+              getAddresss((0x1cc4634));//Transform get_position
     get_forward = (Vector3 (*)(void*)) 
-              getAddresss((0x1cc4f7c));//Transform get_forward
+              getAddresss((0x1cc50d0));//Transform get_forward
     get_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x1cc45e4));//Transform get_position_Injected
+               getAddresss((0x1cc468c));//Transform get_position_Injected
     set_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x1cc468c));//Transform set_position_Injected
+               getAddresss((0x1cc473c));//Transform set_position_Injected
     get_transform = (void *(*)(void*)) 
-               getAddresss((0x1cd676c));//Component get_transform
+               getAddresss((0x1cd67ac));//Component get_transform
     get_main = (void*(*)()) 
-               getAddresss((0x1cd472c));//Camera get_main  
+               getAddresss((0x1cd4bbc));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
-               getAddresss((0x2e0c0a8));//Player name
+               getAddresss((0x0000000));//Player name
 	
 				
-    DobbyHook((void *) getAddresss((0x2d8c3b0)), (void *) Player_update, (void **) &old_Player_update);
+    DobbyHook((void *) getAddresss((0x2d8d1ec)), (void *) Player_update, (void **) &old_Player_update);
 
     DobbyHook((void *) getAddresss((0x0000000)), (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
 
