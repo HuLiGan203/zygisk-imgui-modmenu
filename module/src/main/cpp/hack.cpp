@@ -353,7 +353,7 @@ ProcMap il2cppMap;
     get_transform = (void *(*)(void*)) 
                getAddresss((0x1cd67ac));//Component get_transform
     get_main = (void*(*)()) 
-               getAddresss((0x1cd4760));//Camera get_main  
+               getAddresss((0x28c20b0));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
                getAddresss((0x0000000));//Player name
 	
