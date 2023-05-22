@@ -127,13 +127,13 @@ if (ImGui::Combo("GetCamera", &itemCamera, "Test1\0Test2\0Test3\0Test4\0Test5\0T
                     CameraTest = 0x17ee9f4;
                     break;          
                 case 6:
-                    CameraTest = 0x2a0d470;
+                    CameraTest = 0x1fdfa20;
                     break;     
                 case 7:
-                    CameraTest = 0x2a0d470;
+                    CameraTest = 0x1fe5094;
                     break;
                 case 8:
-                    CameraTest = 0x2a0d470;
+                    CameraTest = 0x19e5cbc;
                     break;                             
                }
             }
