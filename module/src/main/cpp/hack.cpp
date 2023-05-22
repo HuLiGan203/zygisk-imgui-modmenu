@@ -79,6 +79,7 @@ bool IsPlayerDead(void *player) {
 static int tabb = 0;
 static int itemChams = 4;
 static int itemOffset = 4;
+CameraTest = 0x0000000;
 //-------------------//
 void ImGui::HackWindow(bool* p_open){
    const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
@@ -105,6 +106,22 @@ if (ImGui::Begin("0xHack", p_open)){
                        
 if (tabb == 0) {
 ImGui::BeginChild("", ImVec2(780.0f,400.0f), true);
+if (ImGui::Combo("GetCamera", &itemCamera, "Test1\0Test2\0Test3\0Test4\0")) {
+                switch (itemCamera) {
+                case 0:                   
+                    CameraTest = 0x0000000;
+                    break;
+                case 1:
+                    CameraTest = 0x0000000; 
+                    break;                  
+                case 2:
+                    CameraTest = 0x0000000;
+                    break;
+                case 3:
+                    CameraTest = 0x0000000;
+                    break;
+                }
+            }
 ImGui::Checkbox("Open Esp", &Vars::Esp::start);
 ImGui::SameLine();
 ImGui::Checkbox("ESP Line", &Vars::Esp::line);
@@ -353,7 +370,7 @@ ProcMap il2cppMap;
     get_transform = (void *(*)(void*)) 
                getAddresss((0x1cd67ac));//Component get_transform
     get_main = (void*(*)()) 
-               getAddresss((0x28c20b0));//Camera get_main  
+               getAddresss((CameraTest));//Camera get_main  
     PlayerName = (MonoString *(*)(void *))
                getAddresss((0x0000000));//Player name
 	
