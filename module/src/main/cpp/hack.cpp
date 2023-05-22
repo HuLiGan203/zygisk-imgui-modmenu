@@ -106,21 +106,36 @@ if (ImGui::Begin("0xHack", p_open)){
                        
 if (tabb == 0) {
 ImGui::BeginChild("", ImVec2(780.0f,400.0f), true);
-if (ImGui::Combo("GetCamera", &itemCamera, "Test1\0Test2\0Test3\0Test4\0")) {
+if (ImGui::Combo("GetCamera", &itemCamera, "Test1\0Test2\0Test3\0Test4\0Test5\0Test6\0Test7\0Test8\0")) {
                 switch (itemCamera) {
                 case 0:                   
-                    CameraTest = 0x0000000;
+                    CameraTest = 0x23724fc;
                     break;
                 case 1:
-                    CameraTest = 0x0000000; 
+                    CameraTest = 0x1926c0c; 
                     break;                  
                 case 2:
-                    CameraTest = 0x0000000;
+                    CameraTest = 0x1c7cb0c;
                     break;
                 case 3:
-                    CameraTest = 0x0000000;
+                    CameraTest = 0x2a0d470;
                     break;
-                }
+                case 4:
+                    CameraTest = 0x1376dc4;
+                    break; 
+                case 5:
+                    CameraTest = 0x17ee9f4;
+                    break;          
+                case 6:
+                    CameraTest = 0x2a0d470;
+                    break;     
+                case 7:
+                    CameraTest = 0x2a0d470;
+                    break;
+                case 8:
+                    CameraTest = 0x2a0d470;
+                    break;                             
+               }
             }
 ImGui::Checkbox("Open Esp", &Vars::Esp::start);
 ImGui::SameLine();
