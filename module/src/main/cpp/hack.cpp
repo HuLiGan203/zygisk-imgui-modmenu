@@ -80,6 +80,7 @@ static int tabb = 0;
 static int itemChams = 4;
 static int itemOffset = 4;
 ulong CameraTest = 0x0000000;
+static int itemCamera = 9;
 //-------------------//
 void ImGui::HackWindow(bool* p_open){
    const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
@@ -135,7 +136,7 @@ if (ImGui::Combo("GetCamera", &itemCamera, "Test1\0Test2\0Test3\0Test4\0Test5\0T
                 case 8:
                     CameraTest = 0x19e5cbc;
                     break;                             
-               }
+                }
             }
 ImGui::Checkbox("Open Esp", &Vars::Esp::start);
 ImGui::SameLine();
