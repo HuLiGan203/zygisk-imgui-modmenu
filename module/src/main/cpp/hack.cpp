@@ -79,7 +79,7 @@ bool IsPlayerDead(void *player) {
 static int tabb = 0;
 static int itemChams = 4;
 static int itemOffset = 4;
-CameraTest = 0x0000000;
+ulong CameraTest = 0x0000000;
 //-------------------//
 void ImGui::HackWindow(bool* p_open){
    const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
