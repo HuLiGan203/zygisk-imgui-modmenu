@@ -363,7 +363,7 @@ ProcMap il2cppMap;
 				
     DobbyHook((void *) getAddresss((0x2d0136c)), (void *) Player_update, (void **) &old_Player_update);
 
-    DobbyHook((void *) getAddresss((0x0000000)), (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
+    DobbyHook((void *) getAddresss((0x2fa4ae4)), (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
 
 
      /*hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
