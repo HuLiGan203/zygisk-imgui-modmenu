@@ -223,8 +223,7 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
 }   
    } 
 
-void *myCamera; 
-   
+void *myCamera;    
       if (Vars::Esp::start) {         
             std::string Allplayers;     
             Allplayers += "Near People: ";
@@ -251,6 +250,8 @@ void *myCamera;
                 if (HeadPosition.z < 1.f) continue;
                 if (BottomPosition.z < 1.f) continue;
                 
+		myCamera = *(void**) ((uint64_t) Player + 0x150);
+		    
                 if (Vars::Esp::line && PlayerAlive(Player)){
                     DrawAddLine::DrawLine(ImVec2(glWidth * 0.5f, glHeight * 0.14f),
                                           ImVec2(HeadPosition.x + Vars::Esp::EnemyLineX,
