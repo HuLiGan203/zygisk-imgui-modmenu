@@ -250,7 +250,7 @@ void *myCamera;
                 if (HeadPosition.z < 1.f) continue;
                 if (BottomPosition.z < 1.f) continue;
                 
-		myCamera = *(void**) ((uint64_t) Player + 0x370);
+		myCamera = *(void**) ((uint64_t) Player + 0x58);
 		    
                 if (Vars::Esp::line && PlayerAlive(Player)){
                     DrawAddLine::DrawLine(ImVec2(glWidth * 0.5f, glHeight * 0.14f),
