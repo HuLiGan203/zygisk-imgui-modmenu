@@ -234,7 +234,7 @@ void *myCamera;
             void *Player;
             if (i < players.size()) 
             Player = players[i];
-            if(Player != NULL && myCamera() !=NULL) {             
+            if(Player != NULL && myCamera !=NULL) {             
                 Vector3 PlayerPos = getPosition(Player);
                 Vector3 MyPos = getPosition(myPlayer);             
                 //Head
@@ -244,8 +244,8 @@ void *myCamera;
                 Vector3 BottomPos = getPosition(Player);
                 Vector3 Bottom = Vector3(BottomPos.x, BottomPos.y - 1.2,BottomPos.z);
                                             
-                auto HeadPosition = WorldToScreenPoint(myCamera(), Head);
-                auto BottomPosition = WorldToScreenPoint(myCamera(), Bottom);
+                auto HeadPosition = WorldToScreenPoint(myCamera, Head);
+                auto BottomPosition = WorldToScreenPoint(myCamera, Bottom);
                 
                 if (HeadPosition.z < 1.f) continue;
                 if (BottomPosition.z < 1.f) continue;
