@@ -250,7 +250,7 @@ void *myCamera;
                 if (HeadPosition.z < 1.f) continue;
                 if (BottomPosition.z < 1.f) continue;
                 
-		myCamera = *(void**) ((uint64_t) Player + 0x150);
+		myCamera = *(void**) ((uint64_t) Player + 0x370);
 		    
                 if (Vars::Esp::line && PlayerAlive(Player)){
                     DrawAddLine::DrawLine(ImVec2(glWidth * 0.5f, glHeight * 0.14f),
@@ -346,22 +346,22 @@ ProcMap il2cppMap;
         Wallhack();
 
   WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
-              getAddresss((0x1cd3ae4));//Camera WorldToScreenPoint(Vector3 position)
+              getAddresss((0x1c4d5ec));//Camera WorldToScreenPoint(Vector3 position)
     Transform_get_position = (Vector3 (*)(void*)) 
-              getAddresss((0x1cc3cc8 ));//Transform get_position
+              getAddresss((0x1c3d7d0));//Transform get_position
     get_forward = (Vector3 (*)(void*)) 
-              getAddresss((0x1cc4764));//Transform get_forward
+              getAddresss((0x1c3e26c));//Transform get_forward
     get_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x1cc3d20));//Transform get_position_Injected
+              getAddresss((0x1c3d828));//Transform get_position_Injected
     set_position = (void (*)(void *, Vector3)) 
-               getAddresss((0x1cc3dd0 ));//Transform set_position_Injected
+              getAddresss((0x1c3d8d8));//Transform set_position_Injected
     get_transform = (void *(*)(void*)) 
-               getAddresss((0x1cd5e40));//Component get_transform    
+              getAddresss((0x1c4f948));//Component get_transform    
     PlayerName = (MonoString *(*)(void *))
-               getAddresss((0x0000000));//Player name
+              getAddresss((0x0000000));//Player name
 	
 				
-    DobbyHook((void *) getAddresss((0x2d88ff8)), (void *) Player_update, (void **) &old_Player_update);
+    DobbyHook((void *) getAddresss((0x2d0136c)), (void *) Player_update, (void **) &old_Player_update);
 
     DobbyHook((void *) getAddresss((0x0000000)), (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
 
