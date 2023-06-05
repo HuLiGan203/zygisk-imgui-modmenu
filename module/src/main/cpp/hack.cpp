@@ -107,37 +107,6 @@ if (ImGui::Begin("0xHack", p_open)){
                        
 if (tabb == 0) {
 ImGui::BeginChild("", ImVec2(780.0f,400.0f), true);
-if (ImGui::Combo("GetCamera", &itemCamera, "Test1\0Test2\0Test3\0Test4\0Test5\0Test6\0Test7\0Test8\0")) {
-                switch (itemCamera) {
-                case 0:                   
-                    CameraTest = 0x23724fc;
-                    break;
-                case 1:
-                    CameraTest = 0x1926c0c; 
-                    break;                  
-                case 2:
-                    CameraTest = 0x1c7cb0c;
-                    break;
-                case 3:
-                    CameraTest = 0x2a0d470;
-                    break;
-                case 4:
-                    CameraTest = 0x1376dc4;
-                    break; 
-                case 5:
-                    CameraTest = 0x17ee9f4;
-                    break;          
-                case 6:
-                    CameraTest = 0x1fdfa20;
-                    break;     
-                case 7:
-                    CameraTest = 0x1fe5094;
-                    break;
-                case 8:
-                    CameraTest = 0x19e5cbc;
-                    break;                             
-                }
-            }
 ImGui::Checkbox("Open Esp", &Vars::Esp::start);
 ImGui::SameLine();
 ImGui::Checkbox("ESP Line", &Vars::Esp::line);
@@ -253,6 +222,8 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
             } 
 }   
    } 
+
+void *myCamera; 
    
       if (Vars::Esp::start) {         
             std::string Allplayers;     
@@ -264,7 +235,7 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
             void *Player;
             if (i < players.size()) 
             Player = players[i];
-            if(Player != NULL && get_main() !=NULL) {             
+            if(Player != NULL && myCamera() !=NULL) {             
                 Vector3 PlayerPos = getPosition(Player);
                 Vector3 MyPos = getPosition(myPlayer);             
                 //Head
@@ -274,8 +245,8 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
                 Vector3 BottomPos = getPosition(Player);
                 Vector3 Bottom = Vector3(BottomPos.x, BottomPos.y - 1.2,BottomPos.z);
                                             
-                auto HeadPosition = WorldToScreenPoint(get_main(), Head);
-                auto BottomPosition = WorldToScreenPoint(get_main(), Bottom);
+                auto HeadPosition = WorldToScreenPoint(myCamera(), Head);
+                auto BottomPosition = WorldToScreenPoint(myCamera(), Bottom);
                 
                 if (HeadPosition.z < 1.f) continue;
                 if (BottomPosition.z < 1.f) continue;
@@ -384,9 +355,7 @@ ProcMap il2cppMap;
     set_position = (void (*)(void *, Vector3)) 
                getAddresss((0x1cc3dd0 ));//Transform set_position_Injected
     get_transform = (void *(*)(void*)) 
-               getAddresss((0x1cd5e40));//Component get_transform
-    get_main = (void*(*)()) 
-               getAddresss((0x288bb58));//Camera get_main  
+               getAddresss((0x1cd5e40));//Component get_transform    
     PlayerName = (MonoString *(*)(void *))
                getAddresss((0x0000000));//Player name
 	
