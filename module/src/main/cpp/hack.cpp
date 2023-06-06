@@ -36,6 +36,9 @@
 #include "Chams.h"
 #include "Includes/Utils.h"
 #include "test.h"
+#include "ByNameModding/Tools.h"
+#include "ByNameModding/fake_dlfcn.h"
+#include "ByNameModding/Il2Cpp.h"
 
 int glHeight, glWidth;
 static bool g_IsSetup = false;
@@ -345,25 +348,23 @@ ProcMap il2cppMap;
         LogShaders();
         Wallhack();
 
-  WorldToScreenPoint  = (Vector3(*)(void*, Vector3)) 
-              getAddresss((0x1c4d5ec));//Camera WorldToScreenPoint(Vector3 position)
-    Transform_get_position = (Vector3 (*)(void*)) 
-              getAddresss((0x1c3d7d0));//Transform get_position
-    get_forward = (Vector3 (*)(void*)) 
-              getAddresss((0x1c3e26c));//Transform get_forward
-    get_position = (void (*)(void *, Vector3)) 
-              getAddresss((0x1c3d828));//Transform get_position_Injected
-    set_position = (void (*)(void *, Vector3)) 
-              getAddresss((0x1c3d8d8));//Transform set_position_Injected
-    get_transform = (void *(*)(void*)) 
-              getAddresss((0x1c4f948));//Component get_transform    
-    PlayerName = (MonoString *(*)(void *))
-              getAddresss((0x0000000));//Player name
-	
-				
-    DobbyHook((void *) getAddresss((0x2d0136c)), (void *) Player_update, (void **) &old_Player_update);
-
-    DobbyHook((void *) getAddresss((0x2fa4ae4)), (void *) Vars::Player::gravity, (void **) &Vars::Player::_gravity);
+    Il2CppAttach();
+    
+        
+    Methods["Transform::get_position"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Transform", "get_position");   
+    Methods["Camera::get_main"] = (uintptr_t) Il2CppGetMethodOffset("Assembly-CSharp.dll", "", "CameraManager", "get_MainCamera",0);
+    Methods["Camera::WorldToScreenPoint"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "WorldToScreenPoint", 1);   
+    Methods["Component::get_transform"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Component", "get_transform");   
+    Methods["Player::get_health"] = (uintptr_t) Il2CppGetMethodOffset("Assembly-CSharp.dll", "", "Player", "get_health");
+    
+    Tools::Hook(Il2CppGetMethodOffset("Assembly-CSharp.dll", "", "Player", "Update", 0), 
+    (void *) Player_Update, 
+    (void **) &old_Player_Update);  
+    
+    Tools::Hook(Il2CppGetMethodOffset("Assembly-CSharp.dll", "", "Player", "OnDestroy", 0), 
+    (void *) Player_OnDestroy, 
+    (void **) &old_Player_OnDestroy);  
+    
 
 
      /*hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
