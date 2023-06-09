@@ -91,11 +91,33 @@ void Player_update(void *player) {
     old_Player_update(player);
 }
 
-void *(*get_main)();
-Vector3 (*WorldToScreenPoint)(void *instance, Vector3);
-void (*get_position)(void *instance, Vector3);
-void *(*get_transform)(void *instance);
-MonoString *(*PlayerName)(void *instance);
+typedef void Camera;
+typedef void Transform;
+typedef void Component;
+
+Vector3 get_position() {
+    auto Transform_get_position = (Vector3 (*)(Transform *)) (Methods["Transform::get_position"]);
+    return Transform_get_position();
+}
+
+Transform get_transform() {
+    auto Component_get_transform = (Transform *(*)(Component *)) (Methods["Component::get_transform"]);
+    return Component_get_transform();
+}
+
+static Camera *get_main() {
+    auto Camera_get_main = (Camera *(*)()) (Methods["Camera::get_main"]);
+    return Camera_get_main();
+}
+
+Vector3 WorldToScreenPoint() {
+    auto main = get_main();
+    if (main) {
+        auto Camera_WorldToScreenPoint = (Vector3 (*)(Camera *, Vector3)) (Methods["Camera::WorldToScreenPoint"]);
+        return Camera_WorldToScreenPoint(main);
+    }
+    return {0, 0, 0};
+}
 
 /*MonoString *(*PlayerName)(void *instance) {
     auto Transform_get_position = (Vector3 (*)(Transform *)) (Methods["Transform::get_position"]);
