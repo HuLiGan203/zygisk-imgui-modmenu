@@ -93,15 +93,9 @@ void Player_update(void *player) {
 
 void *(*get_main)();
 Vector3 (*WorldToScreenPoint)(void *instance, Vector3);
-Vector3 (*Transform_get_position)(void *instance);
-Vector3 (*get_forward)(void *instance);
-void (*set_position)(void *instance, Vector3);
 void (*get_position)(void *instance, Vector3);
 void *(*get_transform)(void *instance);
 MonoString *(*PlayerName)(void *instance);
-Vector3 get_position(void *player){
-return Transform_get_position(get_transform(player));
-}
 
 /*MonoString *(*PlayerName)(void *instance) {
     auto Transform_get_position = (Vector3 (*)(Transform *)) (Methods["Transform::get_position"]);
