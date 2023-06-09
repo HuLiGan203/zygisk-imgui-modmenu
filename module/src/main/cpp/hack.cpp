@@ -4,8 +4,6 @@
 #include <unistd.h>
 #include <dlfcn.h>
 #include <string>
-//#include <GLES2/gl2ext.h>
-//#include <GLES2/gl2platform.h>
 #include <EGL/egl.h>
 #include <GLES2/gl2.h>
 #include <list>
@@ -51,16 +49,81 @@ HOOKAF(void, Input, void *thiz, void *ex_ab, void *ex_ac) {
     return;
 }
 
-void *(*get_main)();
-Vector3 (*WorldToScreenPoint)(void *instance, Vector3);
-Vector3 (*Transform_get_position)(void *instance);
-Vector3 (*get_forward)(void *instance);
-void (*set_position)(void *instance, Vector3);
-void (*get_position)(void *instance, Vector3);
-void *(*get_transform)(void *instance);
-MonoString *(*PlayerName)(void *instance);
-Vector3 getPosition(void *player){
-    return Transform_get_position(get_transform(player));
+vector<void*> players;
+int MAX_PLAYERS = 40;
+
+void (*old_Player_OnDestroy)(...);
+void Player_OnDestroy(void *player) {
+    if (player != NULL) {
+        old_Player_OnDestroy(player);
+        players.clear();  
+    }
+}
+
+bool playerFind(void *pl) {
+    if (pl != NULL) {
+        for (int i = 0; i < players.size(); i++) {
+            if (pl == players[i]) return true;
+        }
+    }
+    return false;
+}
+
+void *myPlayer;
+void *Player;
+void (*old_Player_update)(...);
+void Player_update(void *player) {
+    if (player != NULL) {
+        
+        
+        bool isMine = *(bool *) ((uint64_t) player + 0x0);
+        if (isMine) {
+            myPlayer = player;
+        }
+        
+        if (!playerFind(player)) players.push_back(player);
+        if (players.size() > MAX_PLAYERS) {
+            players.clear();
+        }
+    }
+    clearPlayers();
+    old_Player_update(player);
+}
+
+typedef void Camera;
+typedef void Transform;
+typedef void Component;
+
+Vector3 get_position(Transform *instance) {
+    auto Transform_get_position = (Vector3 (*)(Transform *)) (Methods["Transform::get_position"]);
+    return Transform_get_position(instance);
+}
+
+Transform *get_transform(void * player) {
+    auto Component_get_transform = (Transform *(*)(Component *)) (Methods["Component::get_transform"]);
+    return Component_get_transform(player);
+}
+
+static Camera *get_main() {
+    auto Camera_get_main = (Camera *(*)()) (Methods["Camera::get_main"]);
+    return Camera_get_main();
+}
+
+Vector3 WorldToScreenPoint(Vector3 pos) {
+    auto main = get_main();
+    if (main) {
+        auto Camera_WorldToScreenPoint = (Vector3 (*)(Camera *, Vector3)) (Methods["Camera::WorldToScreenPoint"]);
+        return Camera_WorldToScreenPoint(main, pos);
+    }
+    return {0, 0, 0};
+}
+
+int GetPlayerHealth(void *player) {
+    return *(float *) ((uint64_t) player + 0x110;
+}
+
+bool PlayerAlive(void *player) {
+    return player != NULL && GetPlayerHealth(player) > 0;
 }
 
 static int tabb = 0;
@@ -206,8 +269,7 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
             } 
 }   
    } 
-
-void *myCamera;    
+	
       if (Vars::Esp::start) {         
             std::string Allplayers;     
             Allplayers += "Near People: ";
@@ -218,24 +280,22 @@ void *myCamera;
             void *Player;
             if (i < players.size()) 
             Player = players[i];
-            if(Player != NULL && myCamera !=NULL) {             
-                Vector3 PlayerPos = getPosition(Player);
-                Vector3 MyPos = getPosition(myPlayer);             
+            if(Player != NULL && get_main !=NULL) {             
+                Vector3 PlayerPos = get_position(Player);
+                Vector3 MyPos = get_position(myPlayer);             
                 //Head
-                Vector3 HeadPos = getPosition(Player);  
+                Vector3 HeadPos = get_position(Player);  
                 Vector3 Head = Vector3(HeadPos.x, HeadPos.y + 0.72,HeadPos.z);                        
                 //Bottom
-                Vector3 BottomPos = getPosition(Player);
+                Vector3 BottomPos = get_position(Player);
                 Vector3 Bottom = Vector3(BottomPos.x, BottomPos.y - 1.2,BottomPos.z);
                                             
-                auto HeadPosition = WorldToScreenPoint(myCamera, Head);
-                auto BottomPosition = WorldToScreenPoint(myCamera, Bottom);
+                auto HeadPosition = WorldToScreenPoint(get_main, Head);
+                auto BottomPosition = WorldToScreenPoint(get_main, Bottom);
                 
                 if (HeadPosition.z < 1.f) continue;
                 if (BottomPosition.z < 1.f) continue;
-                
-		myCamera = *(void**) ((uint64_t) Player + 0x58);
-		    
+               
                 if (Vars::Esp::line && PlayerAlive(Player)){
                     DrawAddLine::DrawLine(ImVec2(glWidth * 0.5f, glHeight * 0.14f),
                                           ImVec2(HeadPosition.x + Vars::Esp::EnemyLineX,
