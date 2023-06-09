@@ -110,7 +110,7 @@ static Camera *get_main() {
     return Camera_get_main();
 }
 
-Vector3 WorldToScreen(Vector3 pos) {
+Vector3 WorldToScreenPoint(Vector3 pos) {
     auto main = get_main();
     if (main) {
         auto Camera_WorldToScreenPoint = (Vector3 (*)(Camera *, Vector3)) (Methods["Camera::WorldToScreenPoint"]);
