@@ -195,7 +195,7 @@ struct Il2CppString {
     }
 };
 
-typedef Il2CppString MonoString;
+typedef Il2CppString;
 
 template<typename T> struct Il2CppList {
     Il2CppClass *klass;
