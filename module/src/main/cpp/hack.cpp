@@ -286,7 +286,7 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
             void *Player;
             if (i < players.size()) 
             Player = players[i];
-            if(Player != NULL && get_main !=NULL) {             
+            if(Player != NULL && get_main() !=NULL) {             
                 Vector3 PlayerPos = get_position(Player);
                 Vector3 MyPos = get_position(myPlayer);             
                 //Head
@@ -296,8 +296,8 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
                 Vector3 BottomPos = get_position(Player);
                 Vector3 Bottom = Vector3(BottomPos.x, BottomPos.y - 1.2,BottomPos.z);
                                             
-                auto HeadPosition = WorldToScreenPoint(get_main, Head);
-                auto BottomPosition = WorldToScreenPoint(get_main, Bottom);
+                auto HeadPosition = WorldToScreenPoint(get_main(), Head);
+                auto BottomPosition = WorldToScreenPoint(get_main(), Bottom);
                 
                 if (HeadPosition.z < 1.f) continue;
                 if (BottomPosition.z < 1.f) continue;
@@ -404,7 +404,7 @@ ProcMap il2cppMap;
     Il2CppAttach();
          
     Methods["Transform::get_position"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Transform", "get_position");   
-    Methods["Camera::get_main"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Camera", "get_main", 1);
+    Methods["Camera::get_main"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Camera", "get_main", 0);
     Methods["Camera::WorldToScreenPoint"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Camera", "WorldToScreenPoint_Injected", 1);   
     Methods["Component::get_transform"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Component", "get_transform");   
     Methods["Player::get_health"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Player", "get_health");
