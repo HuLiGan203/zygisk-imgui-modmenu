@@ -95,14 +95,14 @@ typedef void Camera;
 typedef void Transform;
 typedef void Component;
 
-Vector3 get_position(void *instance, Vector3) {
+Vector3 get_position() {
     auto Transform_get_position = (Vector3 (*)(Transform *)) (Methods["Transform::get_position"]);
     return Transform_get_position(instance);
 }
 
-Transform *get_transform(void * instance) {
+Transform get_transform() {
     auto Component_get_transform = (Transform *(*)(Component *)) (Methods["Component::get_transform"]);
-    return Component_get_transform(player);
+    return Component_get_transform(Player);
 }
 
 static Camera *get_main() {
@@ -110,11 +110,11 @@ static Camera *get_main() {
     return Camera_get_main();
 }
 
-Vector3 WorldToScreenPoint(void *instance, Vector3) {
+Vector3 WorldToScreenPoint() {
     auto main = get_main();
     if (main) {
         auto Camera_WorldToScreenPoint = (Vector3 (*)(Camera *, Vector3)) (Methods["Camera::WorldToScreenPoint"]);
-        return Camera_WorldToScreenPoint(main, pos);
+        return Camera_WorldToScreenPoint(main);
     }
     return {0, 0, 0};
 }
