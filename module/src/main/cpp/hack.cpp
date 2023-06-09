@@ -95,12 +95,12 @@ typedef void Camera;
 typedef void Transform;
 typedef void Component;
 
-Vector3 get_position(Transform *instance) {
+Vector3 get_position(void *instance, Vector3) {
     auto Transform_get_position = (Vector3 (*)(Transform *)) (Methods["Transform::get_position"]);
     return Transform_get_position(instance);
 }
 
-Transform *get_transform(void * player) {
+Transform *get_transform(void * instance) {
     auto Component_get_transform = (Transform *(*)(Component *)) (Methods["Component::get_transform"]);
     return Component_get_transform(player);
 }
