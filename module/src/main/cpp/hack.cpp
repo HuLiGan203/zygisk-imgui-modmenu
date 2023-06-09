@@ -43,6 +43,7 @@ static bool g_IsSetup = false;
 static std::string g_IniFileName = "";
 static utils::module_info g_TargetModule{};
 std::map<std::string, uintptr_t> Methods;
+uintptr_t g_il2cpp;
 
 HOOKAF(void, Input, void *thiz, void *ex_ab, void *ex_ac) {
     origInput(thiz, ex_ab, ex_ac);
@@ -87,7 +88,6 @@ void Player_update(void *player) {
             players.clear();
         }
     }
-    clearPlayers();
     old_Player_update(player);
 }
 
@@ -119,8 +119,13 @@ Vector3 WorldToScreenPoint(Vector3 pos) {
     return {0, 0, 0};
 }
 
+/*MonoString *(*PlayerName)(void *instance) {
+    auto Transform_get_position = (Vector3 (*)(Transform *)) (Methods["Transform::get_position"]);
+    return Transform_get_position(instance);
+}*/
+
 int GetPlayerHealth(void *player) {
-    return *(float *) ((uint64_t) player + 0x110;
+    return *(float *) ((uint64_t) player + 0x110);
 }
 
 bool PlayerAlive(void *player) {
@@ -330,9 +335,9 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
                 DrawAddLine::DrawText2(23.0f, ImVec2(playerRect.x - (playerRect.width / 0.88), playerRect.y - 20), ImVec4(0, 1, 1, 1), extra);                      
                 }
             
-                if(Vars::Esp::nickname && PlayerAlive(Player)) {
+                /*if(Vars::Esp::nickname && PlayerAlive(Player)) {
                 MonoString *isPlayerName = PlayerName(Player);          
-                DrawAddLine::DrawText2(25.0f, ImVec2(playerRect.x + (boxWidth / 15.5), playerRect.y - 39), ImVec4(0, 1, 1, 1), isPlayerName->toChars());                    
+                DrawAddLine::DrawText2(25.0f, ImVec2(playerRect.x + (boxWidth / 15.5), playerRect.y - 39), ImVec4(0, 1, 1, 1), isPlayerName->toChars());*/                    
                 }
             }
         }       
@@ -373,6 +378,7 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
 }
 
 void hack_start(const char *_game_data_dir) {
+	
     while (!g_il2cpp) {
         g_il2cpp = Tools::GetBaseAddress("libil2cpp.so");
         sleep(1);
@@ -398,14 +404,14 @@ ProcMap il2cppMap;
     Il2CppAttach();
          
     Methods["Transform::get_position"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Transform", "get_position");   
-    Methods["Camera::get_main"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Camera", "get_main",0);
+    Methods["Camera::get_main"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Camera", "get_main", 1);
     Methods["Camera::WorldToScreenPoint"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Camera", "WorldToScreenPoint_Injected", 1);   
     Methods["Component::get_transform"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Component", "get_transform");   
     Methods["Player::get_health"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Player", "get_health");
     
     Tools::Hook(Il2CppGetMethodOffset("Assembly-CSharp.dll", "", "OtherPlayerController", "Update", 0), 
-    (void *) Player_Update, 
-    (void **) &old_Player_Update);  
+    (void *) Player_update, 
+    (void **) &old_Player_update);  
     
     Tools::Hook(Il2CppGetMethodOffset("Assembly-CSharp.dll", "", "OtherPlayerController", "OnDestroy", 0), 
     (void *) Player_OnDestroy, 
