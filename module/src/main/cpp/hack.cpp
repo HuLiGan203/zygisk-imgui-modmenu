@@ -51,12 +51,7 @@ HOOKAF(void, Input, void *thiz, void *ex_ab, void *ex_ac) {
     return;
 }
 
-/*struct My_Patches {
-MemoryPatch Sh, bypass1, bypass2, bypass3;
-} hexPatches;*/
-
 void *(*get_main)();
-
 Vector3 (*WorldToScreenPoint)(void *instance, Vector3);
 Vector3 (*Transform_get_position)(void *instance);
 Vector3 (*get_forward)(void *instance);
@@ -68,22 +63,8 @@ Vector3 getPosition(void *player){
     return Transform_get_position(get_transform(player));
 }
 
-int GetPlayerHealth(void *player) {
-    return *(float *) ((uint64_t) player + 0x110);
-} 
-
-bool PlayerAlive(void *player) {
-    return player != NULL && GetPlayerHealth(player) > 0;
-}
-bool IsPlayerDead(void *player) {
-    return player == NULL && GetPlayerHealth(player) <= 0;
-}
-
 static int tabb = 0;
 static int itemChams = 4;
-static int itemOffset = 4;
-ulong CameraTest = 0x0000000;
-static int itemCamera = 9;
 //-------------------//
 void ImGui::HackWindow(bool* p_open){
    const ImGuiViewport* main_viewport = ImGui::GetMainViewport();
@@ -351,42 +332,20 @@ ProcMap il2cppMap;
     Il2CppAttach();
     
         
-    Methods["Transform::get_position"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Transform", "get_position");   
-    Methods["Camera::get_main"] = (uintptr_t) Il2CppGetMethodOffset("Assembly-CSharp.dll", "", "CameraManager", "get_MainCamera",0);
-    Methods["Camera::WorldToScreenPoint"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "WorldToScreenPoint", 1);   
-    Methods["Component::get_transform"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Component", "get_transform");   
-    Methods["Player::get_health"] = (uintptr_t) Il2CppGetMethodOffset("Assembly-CSharp.dll", "", "Player", "get_health");
+    Methods["Transform::get_position"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Transform", "get_position");   
+    Methods["Camera::get_main"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Camera", "get_main",0);
+    Methods["Camera::WorldToScreenPoint"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Camera", "WorldToScreenPoint_Injected", 1);   
+    Methods["Component::get_transform"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Component", "get_transform");   
+    Methods["Player::get_health"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Player", "get_health");
     
-    Tools::Hook(Il2CppGetMethodOffset("Assembly-CSharp.dll", "", "Player", "Update", 0), 
+    Tools::Hook(Il2CppGetMethodOffset("Assembly-CSharp.dll", "", "OtherPlayerController", "Update", 0), 
     (void *) Player_Update, 
     (void **) &old_Player_Update);  
     
-    Tools::Hook(Il2CppGetMethodOffset("Assembly-CSharp.dll", "", "Player", "OnDestroy", 0), 
+    Tools::Hook(Il2CppGetMethodOffset("Assembly-CSharp.dll", "", "OtherPlayerController", "OnDestroy", 0), 
     (void *) Player_OnDestroy, 
     (void **) &old_Player_OnDestroy);  
     
-
-
-     /*hexPatches.bypass1 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bd, "00 00 00 00");
-     hexPatches.bypass2 = MemoryPatch::createWithHex("libil2cpp.so", 0x7bc, "00 00 00 00");
-     hexPatches.bypass3 = MemoryPatch::createWithHex("libil2cpp.so", 0x7be, "00 00 00 00");
-    	
-     hexPatches.bypass1.Modify();Anti detect 
-     hexPatches.bypass2.Modify();
-     hexPatches.bypass3.Modify();Anti detect 
-	
-    	
- 01 00 A0 E3 1E FF 2F E1 = 1/True
- 00 00 A0 E3 1E FF 2F E1 = 0/False
- FA 04 44 E3 1E FF 2F E1 = FLOAT/2000
- c6 02 44 e3 1e ff 2f e1 = FLOAT/99
- 20 02 44 E3 1E FF 2F E1 = FLOAT/40
- C8 02 44 E3 1E FF 2F E1 = FLOAT/100
- 37 00 A0 E3 1E FF 2F E1 = 50 INT
- FF 00 A0 E3 1E FF 2F E1 = 255 INT
- E7 03 00 E3 1E FF 2F E1 = 999 INT
- DC 0F 0F E3 1E FF 2F E1 = 65500/INT
- */
 }
 
 void hack_prepare(const char *_game_data_dir) {
