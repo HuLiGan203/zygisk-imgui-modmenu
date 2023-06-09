@@ -312,6 +312,11 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
 }
 
 void hack_start(const char *_game_data_dir) {
+    while (!g_il2cpp) {
+        g_il2cpp = Tools::GetBaseAddress("libil2cpp.so");
+        sleep(1);
+    }
+	
     LOGI("hack start | %s", _game_data_dir);
     do {
         sleep(1);
