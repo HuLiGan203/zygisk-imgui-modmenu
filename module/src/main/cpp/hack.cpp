@@ -390,7 +390,7 @@ ProcMap il2cppMap;
             il2cppMap = KittyMemory::getLibraryMap("libil2cpp.so");
             sleep(1);
         } while (!il2cppMap.isValid() && mlovinit());
-        setShader("_MainLightPosition");
+        setShader("");
         LogShaders();
         Wallhack();
 
