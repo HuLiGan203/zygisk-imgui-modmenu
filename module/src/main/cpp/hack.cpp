@@ -110,7 +110,7 @@ static Camera *get_main() {
     return Camera_get_main();
 }
 
-Vector3 WorldToScreenPoint(Vector3 pos) {
+Vector3 WorldToScreenPoint(void *instance, Vector3) {
     auto main = get_main();
     if (main) {
         auto Camera_WorldToScreenPoint = (Vector3 (*)(Camera *, Vector3)) (Methods["Camera::WorldToScreenPoint"]);
@@ -338,7 +338,6 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
                 /*if(Vars::Esp::nickname && PlayerAlive(Player)) {
                 MonoString *isPlayerName = PlayerName(Player);          
                 DrawAddLine::DrawText2(25.0f, ImVec2(playerRect.x + (boxWidth / 15.5), playerRect.y - 39), ImVec4(0, 1, 1, 1), isPlayerName->toChars());*/                    
-                }
             }
         }       
     }
