@@ -71,18 +71,11 @@ bool playerFind(void *pl) {
     return false;
 }
 
-void *myPlayer;
 void *Player;
 void (*old_Player_update)(...);
 void Player_update(void *player) {
     if (player != NULL) {
-        
-        
-        bool isMine = *(bool *) ((uint64_t) player + 0x0);
-        if (isMine) {
-            myPlayer = player;
-        }
-        
+        \  
         if (!playerFind(player)) players.push_back(player);
         if (players.size() > MAX_PLAYERS) {
             players.clear();
@@ -118,8 +111,6 @@ WorldToScreenPoint(Vector3 pos) {
     }
     return {0, 0, 0};
 }
-
-Vector3 PlayerPosition = WorldToScreenPoint(get_position(get_transform(Player)));
 
 /*MonoString *(*PlayerName)(void *instance) {
     auto Transform_get_position = (Vector3 (*)(Transform *)) (Methods["Transform::get_position"]);
@@ -201,7 +192,7 @@ ImGui::BeginChild("", ImVec2(780.0f,400.0f), true);
   if (ImGui::Combo("Shaders", &itemChams, "_MainLightPosition\0_BaseMap\0_unity_SpecCube0\0_MainTex_ST\0")) {
                 switch (itemChams) {
                 case 0:
-                    setShader("_MainLightPosition");
+                    setShader("");
                     break;
                 case 1:
                     setShader("_BaseMap");
@@ -210,7 +201,7 @@ ImGui::BeginChild("", ImVec2(780.0f,400.0f), true);
                   setShader("unity_SpecCube0");
                     break;
                 case 3:
-                    setShader("_MainTex_ST");
+                    setShader("");
                     break;
                 }
             }
@@ -289,8 +280,7 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
             if (i < players.size()) 
             Player = players[i];
             if(Player != NULL && get_main() !=NULL) {             
-                Vector3 PlayerPos = get_position(Player);
-                Vector3 MyPos = get_position(myPlayer);             
+                Vector3 PlayerPos = get_position(get_transform(Player));            
                 //Head
                 Vector3 HeadPos = get_position(Player);  
                 Vector3 Head = Vector3(HeadPos.x, HeadPos.y + 0.72,HeadPos.z);                        
@@ -298,8 +288,8 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
                 Vector3 BottomPos = get_position(Player);
                 Vector3 Bottom = Vector3(BottomPos.x, BottomPos.y - 1.2,BottomPos.z);
                                             
-                auto HeadPosition = WorldToScreenPoint(get_main(), Head);
-                auto BottomPosition = WorldToScreenPoint(get_main(), Bottom);
+                auto HeadPosition = WorldToScreenPoint(Head);
+                auto BottomPosition = WorldToScreenPoint(Bottom);
                 
                 if (HeadPosition.z < 1.f) continue;
                 if (BottomPosition.z < 1.f) continue;
@@ -330,14 +320,14 @@ if (ImGui::Checkbox("Default Chams", &Vars::Player::Chams1)) {
                 DrawAddLine::DrawText2(23.0f, ImVec2(playerRect.x + (playerRect.width / 0.78), playerRect.y - 20), ImVec4(0, 1, 1, 1), GetHp.c_str());  
                 }
                 
-                if(Vars::Esp::distance && PlayerAlive(Player)){
+                /*if(Vars::Esp::distance && PlayerAlive(Player)){
                 char extra[30];
                 float DistanceTo = DrawAddLine::get_3D_Distance(MyPos.x, MyPos.y, MyPos.z, PlayerPos.x, PlayerPos.y, PlayerPos.z);              
                 sprintf(extra, "%0.0f m", DistanceTo);                  
                 DrawAddLine::DrawText2(23.0f, ImVec2(playerRect.x - (playerRect.width / 0.88), playerRect.y - 20), ImVec4(0, 1, 1, 1), extra);                      
                 }
             
-                /*if(Vars::Esp::nickname && PlayerAlive(Player)) {
+                if(Vars::Esp::nickname && PlayerAlive(Player)) {
                 MonoString *isPlayerName = PlayerName(Player);          
                 DrawAddLine::DrawText2(25.0f, ImVec2(playerRect.x + (boxWidth / 15.5), playerRect.y - 39), ImVec4(0, 1, 1, 1), isPlayerName->toChars());*/                    
             }
@@ -379,12 +369,6 @@ EGLBoolean hook_eglSwapBuffers(EGLDisplay dpy, EGLSurface surface) {
 }
 
 void hack_start(const char *_game_data_dir) {
-	
-    while (!g_il2cpp) {
-        g_il2cpp = Tools::GetBaseAddress("libil2cpp.so");
-        sleep(1);
-    }
-	
     LOGI("hack start | %s", _game_data_dir);
     do {
         sleep(1);
@@ -392,23 +376,23 @@ void hack_start(const char *_game_data_dir) {
     } while (g_TargetModule.size <= 0);
     LOGI("%s: %p - %p",TargetLibName, g_TargetModule.start_address, g_TargetModule.end_address);
 
-    //TODO:hooking/patching here    
-ProcMap il2cppMap;        
-        do {
-            il2cppMap = KittyMemory::getLibraryMap("libil2cpp.so");
-            sleep(1);
-        } while (!il2cppMap.isValid() && mlovinit());
-        setShader("");
-        LogShaders();
-        Wallhack();
-
+    //TODO:hooking/patching here 
+    while (!g_il2cpp) {
+        g_il2cpp = Tools::GetBaseAddress("libil2cpp.so");
+        sleep(1);
+    }
+    setShader("");
+    LogShaders();
+    Wallhack();
+    mlovinit();
+    LOGI("libil2cpp.so: %p", g_il2cpp)
     Il2CppAttach();
          
-    Methods["Transform::get_position"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Transform", "get_position");   
-    Methods["Camera::get_main"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Camera", "get_main", 0);
-    Methods["Camera::WorldToScreenPoint"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Camera", "WorldToScreenPoint_Injected", 1);   
-    Methods["Component::get_transform"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Component", "get_transform");   
-    Methods["Player::get_health"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.CoreModule.dll", "UnityEngine", "Player", "get_health");
+    Methods["Transform::get_position"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Transform", "get_position");   
+    Methods["Camera::get_main"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "get_main", 0);
+    Methods["Camera::WorldToScreenPoint"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Camera", "WorldToScreenPoint_Injected", 1);   
+    Methods["Component::get_transform"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Component", "get_transform");   
+    Methods["Player::get_health"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Player", "get_health");
     
     Tools::Hook(Il2CppGetMethodOffset("Assembly-CSharp.dll", "", "OtherPlayerController", "Update", 0), 
     (void *) Player_update, 
