@@ -114,7 +114,7 @@ Vector3 WorldToScreenPoint(Vector3 pos) {
     auto main = get_main();
     if (main) {
         auto Camera_WorldToScreenPoint = (Vector3 (*)(Camera *, Vector3)) (Methods["Camera::WorldToScreenPoint"]);
-        return Camera_WorldToScreenPoint(main);
+        return Camera_WorldToScreenPoint(main,pos);
     }
     return {0, 0, 0};
 }
