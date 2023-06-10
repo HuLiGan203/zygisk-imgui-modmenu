@@ -59,9 +59,9 @@ set(IMGUI_SRC
 )
 
 set(BNM_SRC
-ByNameModding/Tools.cpp
-ByNameModding/fake_dlfcn.cpp
-ByNameModding/Il2Cpp.cpp
+ByNameModding/Tools.h
+ByNameModding/fake_dlfcn.h
+ByNameModding/Il2Cpp.h
 )
 
 file(GLOB KITTY_MEMORY_SRC ${PROJECT_SOURCE_DIR}/KittyMemory/*.cpp)
