@@ -385,7 +385,6 @@ void hack_start(const char *_game_data_dir) {
     LogShaders();
     Wallhack();
     mlovinit();
-    LOGI("libil2cpp.so: %p", g_il2cpp);
     Il2CppAttach();
          
     Methods["Transform::get_position"] = (uintptr_t) Il2CppGetMethodOffset("UnityEngine.dll", "UnityEngine", "Transform", "get_position");   
