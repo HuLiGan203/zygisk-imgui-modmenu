@@ -2,6 +2,8 @@
 
 #include <Substrate/SubstrateHook.h>
 #include <Substrate/CydiaSubstrate.h>
+#include "Dobby/include/dobby.h"
+
 
 namespace Tools {
     void Hook(void *target, void *replace, void **backup);
