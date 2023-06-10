@@ -11,8 +11,7 @@
 #include <codecvt>
 #include <locale>
 #include <dlfcn.h>
-
-using namespace std;
+#include "Mono/MonoString.cpp"
 
 #ifndef IL2CPP_H
 #define IL2CPP_H
