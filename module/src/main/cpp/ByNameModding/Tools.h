@@ -1,7 +1,4 @@
 #include "Includes.h"
-
-#include <Substrate/SubstrateHook.h>
-#include <Substrate/CydiaSubstrate.h>
 #include "Dobby/include/dobby.h"
 
 
