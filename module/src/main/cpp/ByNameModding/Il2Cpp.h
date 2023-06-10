@@ -11,7 +11,6 @@
 #include <codecvt>
 #include <locale>
 #include <dlfcn.h>
-#include "Mono/MonoString.cpp"
 
 #ifndef IL2CPP_H
 #define IL2CPP_H
@@ -194,7 +193,7 @@ struct Il2CppString {
     }
 };
 
-typedef Il2CppString;
+typedef Il2CppString MonoString;
 
 template<typename T> struct Il2CppList {
     Il2CppClass *klass;
