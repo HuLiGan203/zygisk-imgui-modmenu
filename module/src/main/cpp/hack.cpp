@@ -74,8 +74,7 @@ bool playerFind(void *pl) {
 void *Player;
 void (*old_Player_update)(...);
 void Player_update(void *player) {
-    if (player != NULL) {
-        \  
+    if (player != NULL) {  
         if (!playerFind(player)) players.push_back(player);
         if (players.size() > MAX_PLAYERS) {
             players.clear();
