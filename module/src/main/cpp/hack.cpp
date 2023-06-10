@@ -110,7 +110,7 @@ static Camera *get_main() {
     return Camera_get_main();
 }
 
-Vector3 WorldToScreenPoint() {
+Vector3 WorldToScreenPoint(Vector3 pos) {
     auto main = get_main();
     if (main) {
         auto Camera_WorldToScreenPoint = (Vector3 (*)(Camera *, Vector3)) (Methods["Camera::WorldToScreenPoint"]);
@@ -118,6 +118,8 @@ Vector3 WorldToScreenPoint() {
     }
     return {0, 0, 0};
 }
+
+Vector3 PlayerPosition = WorldToScreenPoint(get_position(get_transform(Player)));
 
 /*MonoString *(*PlayerName)(void *instance) {
     auto Transform_get_position = (Vector3 (*)(Transform *)) (Methods["Transform::get_position"]);
