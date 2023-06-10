@@ -27,7 +27,7 @@
 #include "Themes.h"
 #include "Data/Fonts/Roboto-Regular.h"
 #include "Draw/Include.h"
-#include "Mono/MonoString.cpp"
+//#include "Mono/MonoString.cpp"
 #include "Unity/Quaternion.hpp"
 #include "KittyMemory/MemoryPatch.h"
 #include "Dobby/include/dobby.h"
